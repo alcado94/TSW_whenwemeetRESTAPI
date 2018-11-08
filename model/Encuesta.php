@@ -134,18 +134,16 @@ class Encuesta {
 	public function checkIsValidForCreate() {
 		$errors = array();
 
-		if (strlen(trim($this->encuestas_idencuestas)) < 2 ) {
-			$errors["usuarios_idcreador"] = "usuarios_idcreador is mandatory";
-		}
-		if ($this->titulo == NULL ) {
-			$errors["titulo"] = "titulo is mandatory";
+		if ($this->titulo == NULL || $this->titulo == '' ) {
+			$errors["titulo"] = "Title is mandatory";
 		}
 		if ($this->fechaCreacion == NULL ) {
 			$errors["fechaCreacion"] = "fechaCreacion is mandatory";
 		}
 
 		if (sizeof($errors) > 0){
-			throw new ValidationException($errors, "comment is not valid");
+			throw new ValidationException($errors, "poll is not valid");
 		}
 	}
+	
 }

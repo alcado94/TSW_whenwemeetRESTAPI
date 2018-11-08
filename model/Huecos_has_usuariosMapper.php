@@ -38,17 +38,17 @@ class HuecohasUsuariosMapper {
 			return true;
 		}
 	}
-	public function existHuecoId($id) {
+	public function existHuecoId($id,$user) {
 		$stmt = $this->db->prepare("SELECT COUNT(idhuecos) FROM huecos_has_usuarios,huecos 
 			WHERE huecos.idhueco=huecos_has_usuarios.idhuecos AND huecos.encuestas_idencuestas=? AND huecos_has_usuarios.usuarios_idusuarios=?");
-		$stmt->execute(array($id,$_SESSION["currentuser"]));
+		$stmt->execute(array($id,$user));
 
 		if ($stmt->fetchColumn() > 0) {
 			return true;
 		}
 	}
 	
-	public function createHuecosUser($id){
+	public function createHuecosUser($id,$user){
 		$stmt = $this->db->prepare("SELECT idhueco FROM huecos WHERE encuestas_idencuestas=?");
 		$stmt->execute(array($id));
 		
@@ -56,7 +56,7 @@ class HuecohasUsuariosMapper {
 		
 		foreach($hueco_db as $hueco){
 			$stmt2 = $this->db->prepare("INSERT INTO huecos_has_usuarios(idhuecos,usuarios_idusuarios,estado) VALUES(?,?,?)");
-			$stmt2->execute(array($hueco["idhueco"],$_SESSION["currentuser"],0));
+			$stmt2->execute(array($hueco["idhueco"],$user,0));
 			
 		}
 	}

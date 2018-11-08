@@ -88,7 +88,7 @@ class Hueco {
 	* @param User $author the author of this comment
 	* @return void
 	*/
-	public function setFechaInicio(date $fechaInicio){
+	public function setFechaInicio(DateTime $fechaInicio){
 		$this->fechaInicio = $fechaInicio;
 	}
 
@@ -107,7 +107,7 @@ class Hueco {
 	* @param Post $post the parent post
 	* @return void
 	*/
-	public function setFechaFin(date $fechaFin) {
+	public function setFechaFin(DateTime $fechaFin) {
 		$this->fechaFin = $fechaFin;
 	}
 
@@ -123,9 +123,6 @@ class Hueco {
 	public function checkIsValidForCreate() {
 		$errors = array();
 
-		if (strlen(trim($this->encuestas_idencuestas)) < 2 ) {
-			$errors["encuestas_idencuestas"] = "encuestas_idencuestas is mandatory";
-		}
 		if ($this->fechaInicio == NULL ) {
 			$errors["fechaInicio"] = "fechaInicio is mandatory";
 		}
@@ -133,8 +130,12 @@ class Hueco {
 			$errors["fechaFin"] = "fechaFin is mandatory";
 		}
 
+		if ( $this->fechaFin < $this->fechaInicio )  {
+			$errors["fechas"] = "fechas deben ser correctas";
+		}
+
 		if (sizeof($errors) > 0){
-			throw new ValidationException($errors, "comment is not valid");
+			throw new ValidationException($errors, "Hueco is not valid");
 		}
 	}
 }

@@ -26,12 +26,11 @@ class HuecoMapper {
 
 	public function save(Hueco $hueco) {
 		$stmt = $this->db->prepare("INSERT INTO huecos(encuestas_idencuestas, fecha_inicio, fecha_fin) values (?,?,?)");
-		$stmt->execute(array($hueco->getEncuestas_idencuestas(), $hueco->getFechaInicio(), $hueco->getFechaFin()));
+		$stmt->execute(array($hueco->getEncuestas_idencuestas(), $hueco->getFechaInicio()->format('Y-m-d H:i:s'), $hueco->getFechaFin()->format('Y-m-d H:i:s')));
 		return $this->db->lastInsertId();
 	}
 
 	public function delete($id) {
-		print_r($id);
 		$stmt = $this->db->prepare("DELETE FROM huecos WHERE idhueco=?");
 		$stmt->execute(array($id));
 	

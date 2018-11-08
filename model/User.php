@@ -168,17 +168,20 @@ class User {
 	*/
 	public function checkIsValidForRegister() {
 		$errors = array();
-		if (strlen($this->name) < 2) {
-			$errors["name"] = "name must be at least 2 characters length";
+		if (strlen($this->name) < 1) {
+			$errors["name"] = "name must be at least 1 characters length";
 		}
-		if (strlen($this->name) < 2) {
-			$errors["surname"] = "surname must be at least 2 characters length";
+		if (strlen($this->surname) < 1) {
+			$errors["surname"] = "surname must be at least 1 characters length";
 		}
-		if (strlen($this->login) < 5) {
-			$errors["login"] = "login must be at least 5 characters length";
+		if (strlen($this->login) < 1) {
+			$errors["login"] = "login must be at least 1 characters length";
 		}
-		if (strlen($this->passwd) < 5) {
-			$errors["passwd"] = "Password must be at least 5 characters length";
+		if (strlen($this->passwd) < 1) {
+			$errors["passwd"] = "Password must be at least 1 characters length";
+		}
+		if ($this->image == NULL ) {
+			$errors["image"] = "Image neccesary";
 		}
 		if (sizeof($errors)>0){
 			throw new ValidationException($errors, "user is not valid");

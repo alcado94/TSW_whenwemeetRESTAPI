@@ -34,7 +34,7 @@ class UserMapper {
 		$stmt->execute(array($user->getName(), $user->getSurname(), $user->getLogin(), $user->getPasswd()));
 		
 		$id = $this->db->lastInsertId();
-		$ruta = "./Files/".$id.".jpg";
+		$ruta = "../Files/".$id.".jpg";
 				
 		$stmt = $this->db->prepare("UPDATE usuarios SET img=? WHERE idusuarios=?");
 		$stmt->execute(array($ruta,$id));

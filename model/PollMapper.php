@@ -154,6 +154,10 @@ class PollMapper {
 
 	private function recomposeArrayShowEditPoll($poll_db){
 
+		if (  empty($poll_db) ){
+			return array();
+		}
+
 		$result = array();
 		$result['title'] = $poll_db[0]['titulo'];
 		$result['Id'] = $poll_db[0]['idencuestas'];
@@ -315,9 +319,9 @@ class PollMapper {
 		return $toret;
 	}
 	
-	public function userIsAuthor($id){
+	public function userIsAuthor($id,$user){
 		$stmt = $this->db->prepare("SELECT COUNT(*) FROM encuestas WHERE idencuestas=? AND usuarios_idcreador=?");
-		$stmt->execute(array($id,$_SESSION["currentuser"]));
+		$stmt->execute(array($id,$user));
 
 		if ($stmt->fetchColumn() > 0) {
 			return true;
