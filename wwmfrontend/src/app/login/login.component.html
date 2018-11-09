@@ -1,0 +1,23 @@
+<div class="container">
+
+  <div class="logmod">
+      <div class="logmod__wrapper">
+      <!--<?php if (isset($_SESSION["viewmanager__flasharray__"]["__flashmessage__"])): ?>
+          <div class="alert alert-success" id="flash" role="alert">
+              <?= $view->popFlash() ?>
+          </div>
+      <?php endif ?>-->
+          <div class="logmod__container">
+          
+              <ul class="logmod__tabs">
+                  <li [appLoginShowCurrent]="'/index/signin'" data-tabtar="lgm-2"><a href routerLink="/index/signin">Loguearse</a></li>
+                  <li [appLoginShowCurrent]="'/index/signup'" data-tabtar="lgm-1"><a href routerLink="/index/signup">Registrate</a></li>
+              </ul>
+              <div class="logmod__tab-wrapper">
+                  
+                  <router-outlet></router-outlet>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

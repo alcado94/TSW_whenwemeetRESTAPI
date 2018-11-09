@@ -1,0 +1,93 @@
+html {
+    box-sizing: border-box;
+  }
+  
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  
+  .logmod {
+    display: block;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 1;
+    z-index: 1;
+  }
+  .logmod::after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+  .logmod__wrapper {
+    display: block;
+    background: #FFF;
+    position: relative;
+    max-width: 550px;
+    border-radius: 4px;
+    box-shadow: 0 0 18px rgba(0, 0, 0, 0.2);
+    margin: 120px auto;
+  }
+ 
+  .logmod__container {
+    overflow: hidden;
+    width: 100%;
+  }
+  .logmod__container::after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+  .logmod__tab {
+    position: relative;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+  }
+  .logmod__tab-wrapper {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+  .logmod__tab.show {
+    opacity: 1;
+    height: 100%;
+    visibility: visible;
+  }
+  .logmod__tabs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .logmod__tabs::after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+  .logmod__tabs li.current a {
+    outline: none;
+    background: #FFF;
+    color: #333;
+  }
+  .logmod__tabs li a {
+    width: 50%;
+    position: relative;
+    float: left;
+    text-align: center;
+    background: #D2D8D8;
+    line-height: 72px;
+    height: 72px;
+    text-decoration: none;
+    color: #809191;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .logmod__tabs li a:focus {
+    outline: none;
+  }
+  
