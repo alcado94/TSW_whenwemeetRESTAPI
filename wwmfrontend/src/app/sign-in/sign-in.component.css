@@ -523,3 +523,10 @@
     animation: backgroundflash 5s forwards; 
   }
   
+
+.alert-form{
+    padding: 8px 0px;
+    margin: auto;
+    font-size: 14px;
+    color: red;
+}

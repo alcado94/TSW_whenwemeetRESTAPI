@@ -1,6 +1,7 @@
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../services/login.service';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-sign-in',
@@ -9,25 +10,39 @@ import { LoginService } from '../services/login.service';
 })
 export class SignInComponent implements OnInit {
 
-  modelForm: any = {
-    login: '',
-    password: '',
-  };
+  myForm: FormGroup;
+  loginCtrl: FormControl;
+  passwordCtrl: FormControl;
+  show = false;
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private loginService: LoginService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.loginCtrl = new FormControl('', Validators.required);
+    this.passwordCtrl = new FormControl('', Validators.required);
+
+    this.myForm = this.fb.group({
+      login: this.loginCtrl,
+      password: this.passwordCtrl
+    });
   }
 
-  loginUser() {
-    console.log(this.modelForm);
-    this.loginService.login(this.modelForm).subscribe( res => {
+  submitHandler() {
 
+    const formValue = this.myForm.value;
+
+    this.loginService.login(formValue).subscribe(res => {
       this.router.navigate(['/dashboard']);
     }, error => {
-
       this.loginService.unsetLocalStorage();
     });
   }
 
+  showPass() {
+    if (this.show) {
+      this.show = false;
+    } else {
+      this.show = true;
+    }
+  }
 }

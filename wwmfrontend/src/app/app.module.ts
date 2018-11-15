@@ -15,6 +15,9 @@ import { LoginService } from './services/login.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginShowCurrentDirective } from './helpers/directives/login-show-current.directive';
 
+import { ReactiveFormsModule } from '@angular/forms';
+import { CardComponent } from './dashboard/card/card.component';
+import { PollDetailComponent } from './poll-detail/poll-detail.component';
 
 
 @NgModule({
@@ -25,12 +28,15 @@ import { LoginShowCurrentDirective } from './helpers/directives/login-show-curre
     SignInComponent,
     SignUpComponent,
     DashboardComponent,
-    LoginShowCurrentDirective
+    LoginShowCurrentDirective,
+    CardComponent,
+    PollDetailComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [

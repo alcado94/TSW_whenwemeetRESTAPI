@@ -3,26 +3,30 @@
       <span class="logmod__heading-subtitle">Enter your login and password to sign in</span>
   </div>
   <div class="logmod__form">
-      <form accept-charset="utf-8" #model="ngForm" (ngSubmit)="loginUser()" class="simform">
+      <form accept-charset="utf-8" [formGroup]="myForm" (ngSubmit)="submitHandler()" class="simform">
           <div class="sminputs">
               <div class="input full">
                   <label class="string optional" for="login">Login*</label>
-                  <input class="string optional" [(ngModel)]="modelForm.login" required name="login" maxlength="255" id="login" placeholder="Login"
+                  <input class="string optional" formControlName="login" name="login" maxlength="255" id="login" placeholder="Login"
                        size="50" />
               </div>
           </div>
           <div class="sminputs">
               <div class="input full">
-                  <label class="string optional" for="passwd">Password*</label>
-                  <input class="string optional" [(ngModel)]="modelForm.password" required name="passwd" maxlength="255" id="passwd" placeholder="Password"
-                      type="password" size="50" />
-                  <span class="hide-password">Show</span>
+                  <label class="string optional" for="password">Password*</label>
+                  <input class="string optional" formControlName="password" name="password" maxlength="255" id="password" placeholder="Password"
+                  [type]="show ? 'password' : 'text'" size="50" />
+                  <span class="hide-password" (click)="showPass()">Show</span>
               </div>
           </div>
           <div class="simform__actions">
-              <input class="sumbit" name="commit" type="submit" value="Enter" />
+              <input [disabled]="myForm.invalid" class="sumbit" name="commit" type="submit" value="Enter" />
           </div>
+          
       </form>
   </div>
+  <span class="alert-form" *ngIf="(passwordCtrl.invalid && passwordCtrl.touched) || (loginCtrl.invalid && loginCtrl.touched)">
+    Introduce login and password
+</span>  
   
 </div>

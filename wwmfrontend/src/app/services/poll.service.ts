@@ -7,6 +7,11 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PollService {
 
+  private url: String = 'http://localhost:80/rest/';
+
   constructor(private http: HttpClient) { }
 
+  getAll() {
+    return this.http.get(this.url + 'poll');
+  }
 }

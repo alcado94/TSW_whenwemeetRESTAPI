@@ -1,3 +1,27 @@
-<p>
-  dashboard works!
-</p>
+<div class="container">
+
+  <div class="dashboard-title">
+      <h2>Bienvenido,<span> Daniel </span> </h2>
+      <a href="index.php?controller=poll&amp;action=add"><button class="btn">Añadir Encuesta</button></a>
+  </div>
+  <div class="container" id="dashboardCards">
+      <div class="row card-deck">
+          <a class="col-lg-3 col-md-4 col-sm-6 col-12 card " *ngFor="let item of arrayCard" [routerLink]="['/poll', item.id]">
+              <div class="card-body">
+                  <h5 class="card-title">{{item.title}}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">{{item.creador.name_creador}} {{item.creador.surname_creador}}</h6>
+                  <ul class="avatars">
+          
+                      <li>
+                          <img alt="Avatar" class="avatar" >
+                      </li>
+          
+                  </ul>
+              </div>
+          </a>
+      </div>
+  </div>
+</div>
+<button type="button" class="btn-add-poll" data-toggle="tooltip" data-placement="left" title="Crear Encuesta">
+  <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M20 15h4.071v2h-4.071v4.071h-2v-4.071h-4.071v-2h4.071v-4.071h2v4.071zm-8 6h-12v-2h12v2zm0-4.024h-12v-2h12v2zm0-3.976h-12v-2h12v2zm12-4h-24v-2h24v2zm0-4h-24v-2h24v2z"/></svg>
+</button>

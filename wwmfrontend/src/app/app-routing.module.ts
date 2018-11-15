@@ -1,3 +1,4 @@
+import { PollDetailComponent } from './poll-detail/poll-detail.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -15,7 +16,8 @@ const routes: Routes = [
             { path: 'signup', component: SignUpComponent }
         ]
     },
-    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }
+    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+    { path: 'poll/:id', component: PollDetailComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

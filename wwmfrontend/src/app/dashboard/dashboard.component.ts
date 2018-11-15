@@ -1,3 +1,4 @@
+import { PollService } from './../services/poll.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  arrayCard: Array<Card>;
+
+  constructor(private pollService: PollService) { }
 
   ngOnInit() {
+    this.pollService.getAll().subscribe(res => {
+      console.log(res);
+      this.arrayCard = res as Card[];
+    }, err => {
+      console.log(err);
+    });
+
   }
 
 }
