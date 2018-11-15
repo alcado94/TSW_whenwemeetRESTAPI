@@ -5,6 +5,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class LoginService {
+  // static userLoged(): any {
+  //   throw new Error("Method not implemented.");
+  // }
 
   private url: String = 'http://localhost:80/rest/';
 
@@ -22,5 +25,9 @@ export class LoginService {
 
   unsetLocalStorage() {
     localStorage.removeItem('currentUser');
+  }
+
+  userLoged(){
+    return localStorage.getItem('currentUser');
   }
 }
