@@ -1,3 +1,4 @@
+import { PollParticipateComponent } from './poll-participate/poll-participate.component';
 import { PollDetailComponent } from './poll-detail/poll-detail.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -17,7 +18,8 @@ const routes: Routes = [
         ]
     },
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-    { path: 'poll/:id', component: PollDetailComponent, canActivate: [AuthGuard] }
+    { path: 'poll/:id', component: PollDetailComponent, canActivate: [AuthGuard] },
+    { path: 'participate/:id', component: PollParticipateComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
