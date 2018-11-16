@@ -18,6 +18,10 @@ import { LoginShowCurrentDirective } from './helpers/directives/login-show-curre
 import { ReactiveFormsModule } from '@angular/forms';
 import { CardComponent } from './dashboard/card/card.component';
 import { PollDetailComponent } from './poll-detail/poll-detail.component';
+import { CheckHourStateDirective } from './helpers/directives/check-hour-state.directive';
+import { ShowHourStartPipe } from './helpers/pipes/show-hour-start.pipe';
+import { ShowDatePipe } from './helpers/pipes/show-date.pipe';
+
 
 
 @NgModule({
@@ -30,7 +34,10 @@ import { PollDetailComponent } from './poll-detail/poll-detail.component';
     DashboardComponent,
     LoginShowCurrentDirective,
     CardComponent,
-    PollDetailComponent
+    PollDetailComponent,
+    CheckHourStateDirective,
+    ShowHourStartPipe,
+    ShowDatePipe
   ],
   imports: [
     BrowserModule,

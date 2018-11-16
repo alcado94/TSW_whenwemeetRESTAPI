@@ -1,0 +1,281 @@
+.divTable{
+    width: 100%;
+    
+}
+.divTable *{
+    background-color: white;
+}
+.divTableColumn {
+    min-width: 80px;
+    cursor: pointer;
+}
+.divTableHeading {
+	background-color: #EEE;
+	display: table-header-group;
+}
+.divTableCell, .divTableHead {
+    border-bottom: 1px solid;
+    border-bottom-color: rgba(0,0,0,0.2);
+    padding: 11px 19px;
+    min-width: 80px;
+    min-height: 91px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.divTableCell h6{
+    margin-bottom: 0px;
+    margin-left: 5px;
+}
+.divTableCellAddLeft{
+    transform: translateY(-10px);
+    box-shadow: -7px -11px 0px 0px white, 0px -7px 15px -4px white, 15px -8px 15px -4px white, 1px 5px 20px 5px rgba(255,127,80 ,0.5);
+}
+.divTableCellAdd{
+    transform: translateY(-10px);
+    box-shadow: 7px 9px 18px -1px rgba(255,127,80 ,0.5), -5px -11px 0px 0px white, 0px -7px 15px -4px white, 15px -8px 15px -4px white;
+}
+.divTableCellAddCheckbox{
+    transform: translateY(-10px);
+    box-shadow: 0px 7px 18px 1px rgba(255,127,80 ,0.5);
+}
+.divTableHeading {
+	background-color: #EEE;
+	display: table-header-group;
+	font-weight: bold;
+}
+.divTableFoot {
+	background-color: #EEE;
+	display: table-footer-group;
+	font-weight: bold;
+}
+.divTableBody {
+    display: flex;
+    padding: 10px;
+    flex-direction: row;
+    margin: auto;
+    width: fit-content;
+    width: -moz-fit-content;
+    -webkit-box-shadow: 2px 3px 18px -5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 3px 18px -5px rgba(0,0,0,0.75);
+    box-shadow: 2px 3px 18px -5px rgba(0,0,0,0.75);
+}
+
+.divTableCellSchedule{
+    padding: 0px 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.divTableColumnSchedule{
+    
+    min-width: 80px;
+    display: none;
+    width: 0%;
+    opacity: 0;
+    animation: Schedule 0.4s forwards;
+}
+.divTableColumnScheduleShow{
+    z-index: 3;
+    
+    min-width: 80px;
+    display: block;
+    width: 100%;
+    opacity: 1;
+    margin-top: -10px;
+    height: fit-content;
+    -webkit-box-shadow: 2px 3px 18px -5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 3px 18px -5px rgba(0,0,0,0.75);
+    box-shadow: 2px 3px 18px -5px rgba(0,0,0,0.75);
+    background-color: white;
+}
+@keyframes Schedule {
+    0% {margin-top: 0px;
+        background-color: white;
+        width: 0px;
+        opacity: 0;
+        box-shadow: none;}
+    60% {width: 100%;
+        opacity: 1;
+        box-shadow: none;
+        margin-top: 0px;}
+    100% {
+        margin-top: -10px;
+        -webkit-box-shadow: 2px 3px 18px -5px rgba(0,0,0,0.75);
+        -moz-box-shadow: 2px 3px 18px -5px rgba(0,0,0,0.75);
+        box-shadow: 2px 3px 18px -5px rgba(0,0,0,0.75);
+    }
+}
+.divTableCellHour{
+    display: flex;
+    flex-direction: column;
+}
+.divTableCellHour span:first-child{
+    border-bottom: 1px solid coral;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+.table-autoscroll{
+    overflow: auto;
+    overflow-y: hidden;
+    padding: 20px;
+}
+.cellDay{
+    flex-direction: column;
+}
+.divTableCellScheduleMobile{
+    display: none;
+}
+.divTableCellAvatar{
+    margin: 0px;
+    justify-content: flex-start;
+}
+.divTableColumnAvatar{
+    min-width: 123px;
+}
+.divTableCellScheduleMobile h5{
+    margin: 0px;
+}
+.edit-poll{
+    float: right;
+    margin-right: 8%;
+    position: relative;
+    
+}
+.edit-poll input{
+    background: none;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border: none;
+}
+.edit-poll svg{
+    top: 12px;
+    left: 14px;
+}
+@media (min-width: 576px){
+    .card-deck .card {
+        border: none;
+        -webkit-box-shadow: 2px 3px 18px -5px rgba(0,0,0,0.75);
+        -moz-box-shadow: 2px 3px 18px -5px rgba(0,0,0,0.75);
+        box-shadow: 2px 3px 18px -5px rgba(0,0,0,0.75);
+    }
+
+    .card-deck .card:hover {
+        transform: scale(1.05);
+        transition: all 0.2s;
+    }
+}
+@media (max-width: 576px){ 
+    .divTableBody{
+        flex-direction: column;
+    }
+    .divTableColumn:first-child{
+        display: none;
+    }
+    .divTableColumn{
+        display: flex;
+    }
+    .divTableColumnScheduleShow{
+        display: flex;
+        flex-direction: row;
+    }
+    .divTableCellSchedule{
+        flex-direction: column;
+    }
+    .divTableCell{
+        min-width: 121px;
+        justify-content: space-around;
+    }
+    :not(.divTableCellScheduleHour) > .divTableCell + :not(.cellDay){
+        display: none;
+    }
+    :not(.divTableCellScheduleHour) > .divTableCellSchedule + :not(.cellDay) {
+        display: none;
+    }
+    .divTableCellScheduleMobile > .divTableCell{
+        display: flex !important;
+    }
+    .divTableCellScheduleMobile{
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .cellDay{
+        min-width: 270px;
+    }
+    .info-meeting{
+        flex-direction: column;
+    }
+}
+
+.info-meeting{
+    display: flex;
+    align-items: baseline;
+    padding: 40px 0px;
+    padding-bottom: 7px;
+    
+}
+.info-meeting h2{
+    font-weight: 600;
+    margin-left: 20px;
+    margin-bottom: 0px;
+}
+.info-meeting h6{
+    color: coral;
+    margin-left: 20px;
+    margin-bottom: 0px;
+}
+.info-meeting h5{
+    margin-left: 20px;
+    margin-bottom: 0px;
+}
+.check-accept{
+    fill: green;
+    
+}
+.check-reject{
+    fill: red;
+}
+.check-nocomplete{
+    fill: thistle;
+}
+.brand-title{
+    color: coral !important;
+}
+
+.edit-poll-set{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.edit-poll-set-r{
+    display: flex;
+}
+
+.share{
+    border-bottom: 1px solid;
+    color: coral;
+}
+@media (max-width: 576px){ 
+    .edit-poll-set{
+        flex-direction: column;
+    }
+
+    .edit-poll-set-l{
+        padding: 10px 25px;
+    }
+}
+
+.check-accept{
+    fill: green;   
+}
+.check-reject{
+    fill: red;
+}
+.check-nocomplete{
+    fill: thistle;
+}

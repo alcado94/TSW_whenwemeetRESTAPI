@@ -14,4 +14,9 @@ export class PollService {
   getAll() {
     return this.http.get(this.url + 'poll');
   }
+
+  getPoll(id) {
+    return this.http.get(this.url + 'poll/' + id);
+  }
+
 }
