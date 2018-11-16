@@ -57,10 +57,22 @@ class UserRest extends BaseRest {
 			echo("Hello ");
 		}
 	}
+
+	public function getUser() {
+		$currentLogged = parent::authenticateUser();
+		
+		$user = $this->userMapper->getUser($currentLogged->getLogin());
+		$result = $user->getName();
+        
+		header($_SERVER['SERVER_PROTOCOL'].' 200 Ok');
+		header('Content-Type: application/json');
+        echo(json_encode($result));
+	}
 }
 
 // URI-MAPPING for this Rest endpoint
 $userRest = new UserRest();
 URIDispatcher::getInstance()
 ->map("GET",	"/user", array($userRest,"login"))
-->map("POST", "/user", array($userRest,"postUser"));
+->map("POST", "/user", array($userRest,"postUser"))
+->map("GET", "/userinfo", array($userRest,"getUser"));
