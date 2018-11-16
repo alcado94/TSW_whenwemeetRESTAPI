@@ -48,4 +48,17 @@ export class PollDetailComponent implements OnInit {
     }
   }
 
+  mobileParticipantes (estados) {
+    let checkarray = 0;
+
+    for (let index = 0; index < estados.length; index++) {
+      const ele = estados[index];
+      if (ele === 1) {
+        checkarray++;
+      }
+    }
+
+    return checkarray;
+  }
+
 }

@@ -21,6 +21,7 @@ import { PollDetailComponent } from './poll-detail/poll-detail.component';
 import { CheckHourStateDirective } from './helpers/directives/check-hour-state.directive';
 import { ShowHourStartPipe } from './helpers/pipes/show-hour-start.pipe';
 import { ShowDatePipe } from './helpers/pipes/show-date.pipe';
+import { PollParticipateComponent } from './poll-participate/poll-participate.component';
 
 
 
@@ -37,7 +38,8 @@ import { ShowDatePipe } from './helpers/pipes/show-date.pipe';
     PollDetailComponent,
     CheckHourStateDirective,
     ShowHourStartPipe,
-    ShowDatePipe
+    ShowDatePipe,
+    PollParticipateComponent
   ],
   imports: [
     BrowserModule,
