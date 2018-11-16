@@ -10,22 +10,20 @@ import { LoginService } from '../services/login.service';
 export class DashboardComponent implements OnInit {
 
   arrayCard: Array<Card>;
-  user: any;
+  user: any = '';
 
   constructor(private pollService: PollService, private loginService: LoginService) { }
 
   ngOnInit() {
     this.pollService.getAll().subscribe(res => {
-      console.log(res);
       this.arrayCard = res as Card[];
     }, err => {
       console.log(err);
     });
-    
+
     this.loginService.getUser().subscribe(res => {
-      console.log(res); 
-      this.user=res;
-    }, err =>{
+      this.user = res;
+    }, err => {
       console.log(err);
     });
 

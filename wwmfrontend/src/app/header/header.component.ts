@@ -13,11 +13,11 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
-  userLoged(){
+  userLoged() {
     return this.loginService.userLoged();
   }
 
-  logout(){
+  logout() {
     this.loginService.unsetLocalStorage();
   }
 

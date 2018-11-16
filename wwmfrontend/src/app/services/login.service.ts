@@ -20,8 +20,12 @@ export class LoginService {
 
   }
 
-  getUser(){
+  getUser() {
     return this.http.get(this.url + 'userinfo');
+  }
+
+  userLoged() {
+    return localStorage.getItem('currentUser');
   }
 
   unsetLocalStorage() {
