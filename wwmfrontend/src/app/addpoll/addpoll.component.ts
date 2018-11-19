@@ -59,7 +59,7 @@ export class AddpollComponent implements OnInit {
       delete toret['day'][index]['hours'];
     });
 
-    this.pollService.postPoll(data).subscribe(res => {
+    this.pollService.postPoll(toret).subscribe(res => {
       this.router.navigate(['/dashboard']);
     }, err => {
       console.log(err);

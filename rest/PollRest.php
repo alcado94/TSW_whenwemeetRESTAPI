@@ -110,13 +110,14 @@ class PollRest extends BaseRest {
 			$enc->checkIsValidForCreate();
 			
 			
-
+			$array_huecos_checked = array();
 			//Este for comprueba si todas las fechas son validas
 			foreach ($data["day"] as $key => $value) {
 				
 				$dia = $value[0];
 
 				$array_huecos = array();
+
 
 				foreach ($value as $key2 => $value2) {
 					if($value2 != $value[0]){
@@ -134,18 +135,16 @@ class PollRest extends BaseRest {
 							}
 						}
 					
-
-						array_push($array_huecos,$hueco);
-						
+						array_push($array_huecos,$hueco);	
+						array_push($array_huecos_checked,$hueco);	
 					}
 				}
 			}
-			
 
 			//Si llega aqui esta todo correcto
 			$id_enc = $this->pollMapper->save($enc);
 
-			foreach ($array_huecos as $key => $hueco) {
+			foreach ($array_huecos_checked as $key => $hueco) {
 				$hueco->setEncuestas_idencuestas($id_enc);
 				$this->huecoMapper->save($hueco);
 			}

@@ -26,9 +26,9 @@ export class CheckHourStateDirective implements OnInit {
   check() {
     const checkarray = [];
     // tslint:disable-next-line:forin
-    for ( const estados in this.dias.value) {
+    for ( const estados in this.dias.values) {
       // console.log(this.dias.value[estados]);
-      checkarray.push(this.dias.value[estados][this.key]);
+      checkarray.push(this.dias.values[estados][this.key]);
     }
 
     if (checkarray.includes(1) && !checkarray.includes(0)) {
