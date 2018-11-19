@@ -3,30 +3,30 @@
       <span class="logmod__heading-subtitle">Introduce tu datos para la creacion de una cuenta</span>
   </div>
   <div class="logmod__form">
-      <form accept-charset="utf-8" action="index.php?controller=users&amp;action=register" method="POST"  class="simform" enctype="multipart/form-data">
+      <form accept-charset="utf-8" [formGroup]="myForm" (ngSubmit)="submitHandler()" class="simform" >
           <div class="sminputs">
               <div class="input full">
                   <label class="string optional" for="user-name">Login*</label>
-                  <input class="string optional" maxlength="255" id="login" name="login" placeholder="Login"
+                  <input class="string optional" maxlength="255" formControlName="login" id="login" name="login" placeholder="Login"
                       type="text" size="50" />
               </div>
           </div>
           <div class="sminputs">
               <div class="input string optional">
                   <label class="string optional" for="user-pw">Name*</label>
-                  <input class="string optional" maxlength="255" id="name" name="name" placeholder="Name"
+                  <input class="string optional" maxlength="255" formControlName="name" id="name" name="name" placeholder="Name"
                       type="text" size="50" />
               </div>
               <div class="input string optional">
                   <label class="string optional" for="user-pw-repeat">Surname*</label>
-                  <input class="string optional" maxlength="255" id="surname" name="surname"
+                  <input class="string optional" maxlength="255" formControlName="surname" id="surname" name="surname"
                       placeholder="Surname" type="text" size="50" />
               </div>
           </div>
           <div class="sminputs">
               <div class="input full">
                   <label class="string optional" for="user-pw">Password*</label>
-                  <input class="string optional" maxlength="255" id="passwd" placeholder="Password" name="passwd"
+                  <input class="string optional" maxlength="255" formControlName="passwd" id="passwd" placeholder="Password" name="passwd"
                       type="password" size="50" />
               </div>
               
@@ -34,9 +34,9 @@
           <div class="simform__actions">
             <div>
               <label class="string optional" for="user-pw">Image (JPG)</label>
-              <input type="file" class="string optional" maxlength="45"  id="img" name="img" tabindex="1" accept="image/jpg" required>
+              <input type="file" (change)="onFileChange($event)" class="string optional" formControlName="img" id="img" name="img" #fileInput>
             </div>
-            <input class="sumbit" name="commit" type="submit" value="Create account" />
+            <input [disabled]="myForm.invalid" class="sumbit" name="commit" type="submit" value="Create account" />
           </div>
       </form>
   </div>
