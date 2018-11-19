@@ -19,4 +19,12 @@ export class PollService {
     return this.http.get(this.url + 'poll/' + id);
   }
 
+  participatePoll(form, id) {
+    return this.http.put(this.url + `poll/${id}/participate`, form);
+  }
+
+  postPoll(form) {
+    return this.http.post(this.url + 'poll', form);
+  }
+
 }

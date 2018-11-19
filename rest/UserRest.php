@@ -62,11 +62,15 @@ class UserRest extends BaseRest {
 		$currentLogged = parent::authenticateUser();
 		
 		$user = $this->userMapper->getUser($currentLogged->getLogin());
-		$result = $user->getName();
-        
+		
 		header($_SERVER['SERVER_PROTOCOL'].' 200 Ok');
 		header('Content-Type: application/json');
-        echo(json_encode($result));
+        echo(json_encode(array(
+			'name' => $user->getName(),
+			'surname' => $user->getSurname(), 
+			'login' => $user->getLogin(), 
+			'image' => $user->getImage()
+		)));
 	}
 }
 

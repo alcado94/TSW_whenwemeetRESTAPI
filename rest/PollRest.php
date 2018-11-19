@@ -116,6 +116,8 @@ class PollRest extends BaseRest {
 				
 				$dia = $value[0];
 
+				$array_huecos = array();
+
 				foreach ($value as $key2 => $value2) {
 					if($value2 != $value[0]){
 						$hueco = new Hueco();						

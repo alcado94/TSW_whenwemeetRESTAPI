@@ -1,0 +1,30 @@
+<div class="container">
+        <div class="container">
+            <div class="logmod__wrapper">
+                <form id="formT" class="logmod__container_add_day" [formGroup]="myForm">
+                    <ul class="logmod__tabs">
+                        <div class="sminputs">
+                            <div class="input full">
+                                <label class="string optional" for="user-name">Titulo</label>
+                                <input class="string optional" formControlName="title" required maxlength="255" id="user-email" placeholder="Titulo" name="title" type="text" size="50">
+                            </div>
+                        </div>
+                    </ul>
+                    <div  class="schedule-pos table-autoscroll">
+                        <app-day-box *ngFor="let day of listDays" [data]="day" (delete)="remove(index)"></app-day-box>
+                    </div>
+                    <div class="errors-date"></div>
+                    <div class="add-day" id="AñadirFecha">
+                        <input type="button" value="" (click)="onAddDayClick()">
+                        <svg class="add-day-icon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M20 15h4.071v2h-4.071v4.071h-2v-4.071h-4.071v-2h4.071v-4.071h2v4.071zm-8 6h-12v-2h12v2zm0-4.024h-12v-2h12v2zm0-3.976h-12v-2h12v2zm12-4h-24v-2h24v2zm0-4h-24v-2h24v2z"/></svg>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="accept-poll-banner">
+            <div class="accept-poll-banner-pos">
+                <button id="enviarform" class="btn btn-primary" (click)="submit()"><?= i18n("Send") ?></button>
+            </div>
+
+        </div>
+    </div>

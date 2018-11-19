@@ -1,0 +1,106 @@
+.logmod__wrapper{
+    max-width: 890px;
+}
+.schedule-pos{
+    display: flex;
+    position: relative;
+    padding: 30px 0px;
+    padding-top: 0px;
+    min-height: 135px;
+}
+.schedule-day{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 10px;
+}
+.schedule-day * {
+    margin: 7px 10px;
+}
+.schedule-date{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.schedule-date-pos{
+    display: flex;
+    align-items: center;
+}
+.logmod__container_add_day {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+.schedule-date-pos input{
+    outline: none;
+    border: none;
+    border-bottom: 2px solid coral;
+    
+}
+.btn-small{
+    max-width: fit-content;
+    min-width: 20px;
+    padding: 0px;
+    background: none;
+    margin: 0px;
+}
+.btn-small-day{
+    max-width: fit-content;
+    min-width: 20px;
+    padding: 0px;
+    background: none;
+    margin: 0px;
+}
+.btn-time{
+    color: white;
+    background-color: coral;
+    -webkit-box-shadow: 2px 3px 18px -5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 3px 18px -5px rgba(0,0,0,0.75);
+    box-shadow: 2px 3px 18px -5px rgba(0,0,0,0.75);
+}
+.input-date{
+    outline: none;
+    border: none;
+    border-bottom: 2px solid coral;
+}
+.add-day{
+    padding: 0px 0px;
+    position: absolute;
+    right: 35px;
+    bottom: 35px;
+    z-index: 80;
+}
+.add-day input{
+    -webkit-box-shadow: 2px 3px 18px -5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 3px 18px -5px rgba(0,0,0,0.75);
+    box-shadow: 2px 3px 18px -5px rgba(0,0,0,0.75);
+    background-color: coral;
+    color: white;
+    border-radius: 50%;
+    border: none;
+    width: 70px;
+    height: 70px;
+    outline: none;
+    cursor: pointer;
+}
+.add-day-icon{
+    position: absolute;
+    top: 22px;
+    left: 25px;
+    cursor: pointer;
+}
+@media (max-width: 576px) {
+    .schedule-pos{
+        flex-direction: column;
+    }
+    .add-day{
+        margin: auto;
+    }
+}
+
+.errors-date{
+    padding: 10px 0px;
+    margin: auto;
+    max-width: fit-content;
+}

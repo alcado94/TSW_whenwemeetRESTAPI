@@ -22,6 +22,9 @@ import { CheckHourStateDirective } from './helpers/directives/check-hour-state.d
 import { ShowHourStartPipe } from './helpers/pipes/show-hour-start.pipe';
 import { ShowDatePipe } from './helpers/pipes/show-date.pipe';
 import { PollParticipateComponent } from './poll-participate/poll-participate.component';
+import { AddpollComponent } from './addpoll/addpoll.component';
+import { DayBoxComponent } from './addpoll/day-box/day-box.component';
+import { HourBoxComponent } from './addpoll/hour-box/hour-box.component';
 
 
 
@@ -39,7 +42,10 @@ import { PollParticipateComponent } from './poll-participate/poll-participate.co
     CheckHourStateDirective,
     ShowHourStartPipe,
     ShowDatePipe,
-    PollParticipateComponent
+    PollParticipateComponent,
+    AddpollComponent,
+    DayBoxComponent,
+    HourBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +58,10 @@ import { PollParticipateComponent } from './poll-participate/poll-participate.co
     AuthGuard,
     LoginService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
+  entryComponents: [
+    DayBoxComponent,
+    HourBoxComponent
   ],
   bootstrap: [AppComponent]
 })

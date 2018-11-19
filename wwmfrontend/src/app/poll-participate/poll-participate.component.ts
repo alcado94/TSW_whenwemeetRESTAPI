@@ -1,3 +1,6 @@
+import { element } from 'protractor';
+import { forEach } from '@angular/router/src/utils/collection';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PollService } from './../services/poll.service';
@@ -14,15 +17,27 @@ export class PollParticipateComponent implements OnInit {
   poll: any = [];
   showDetail: string = undefined;
 
-  constructor(private pollService: PollService, private route: ActivatedRoute, 
-    @Inject(DOCUMENT) document) {
+  index = 0;
+  diaSave = 0;
+
+  myForm: FormGroup;
+
+  constructor(private pollService: PollService, private route: ActivatedRoute,
+    @Inject(DOCUMENT) document, private fb: FormBuilder) {
     this.route.params.subscribe( params => this.id = params['id'] );
   }
 
   ngOnInit() {
+
+    this.myForm = this.fb.group({});
+
     this.pollService.getPoll(this.id).subscribe(res => {
       console.log(res);
       this.poll = res;
+      console.log(this.poll.diasId);
+      this.poll.diasId.forEach(control => this.myForm.addControl(control, new FormControl()));
+        //
+
     }, err => {
       console.log(err);
     });
@@ -65,6 +80,46 @@ export class PollParticipateComponent implements OnInit {
       }
       document.getElementById(id).checked = true;
     }
+  }
+
+  getId() {
+
+    const toret = this.index;
+    
+    this.index++;
+
+    if ( this.poll.diasId.length === this.index ) {
+      this.index = 0;
+    }
+
+    return toret;
+  }
+
+  submitHandler() {
+    const formValue = this.myForm.value;
+    const toret = {};
+
+    console.log(formValue);
+
+    for (const elem in this.myForm.controls) {
+      console.log(this.myForm.controls[elem]);
+      /*if (elem.checked) {
+        toret[elem.toString()] = '1';
+      }*/
+    }
+
+    const form = {
+      'participateDate' : toret
+    };
+
+
+    this.pollService.participatePoll(form, this.poll.id).subscribe( res => {
+      console.log(res);
+    }, err => {
+      console.log(err);
+    });
+
+    console.log(form);
   }
 
 

@@ -18,7 +18,7 @@
     </div>
     <div class="container table-autoscroll" id="style-6">
         <div class="divTable">
-            <div class="divTableBody">
+            <form class="divTableBody" [formGroup]="myForm">
                 <div class="divTableColumn divTableColumnAvatar">
                     <div class="divTableCell">&nbsp;</div>
                     
@@ -65,12 +65,13 @@
                             <div *ngIf="clave2 === 0" class="divTableCellSchedule divTableCellAddCheckbox" >    
                                 <div class="divTableCell" *ngFor="let estados of horas.value | keyvalue; let hora = index;">
                                     <div *ngIf="clave2 === 0" class="exp">
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="{{poll.diasId[dia]}}">
-                                            <label for="{{poll.diasId[dia]}}" (click)="setMobile(poll.diasId[dia].toString(), true)">
+                                        <div class="checkbox">    
+                                            <input type="checkbox" id="{{dia}}{{hora}}" [checked]="estados.value[clave2] === 1" formControlName="{{poll.diasId[getId()]}}">
+                                            <label for="{{dia}}{{hora}}" (click)="setMobile(poll.diasId[dia].toString(), true)">
                                                 <span ></span>
                                             </label>
                                         </div>
+                                        
                                     </div>
                                     <svg *ngIf="clave2 !== 0 && estados.value[clave2] === 1" class="check-accept" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M24 4.685l-16.327 17.315-7.673-9.054.761-.648 6.95 8.203 15.561-16.501.728.685z"/></svg>  
                                     <svg *ngIf="clave2 !== 0 && estados.value[clave2] !== 1" class="check-reject" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M24 4.685l-16.327 17.315-7.673-9.054.761-.648 6.95 8.203 15.561-16.501.728.685z"/></svg>  
@@ -100,6 +101,12 @@
                         </div>    
                     </div>    
                 </ng-container>
-        </div>  
+            </form>  
+    </div>
+</div>
+
+<div class="accept-poll-banner">
+    <div class="accept-poll-banner-pos">
+        <button (click)="submitHandler()" class="btn btn-primary">Enviar</button>
     </div>
 </div>
