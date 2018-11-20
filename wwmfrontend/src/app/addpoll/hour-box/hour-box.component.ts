@@ -1,6 +1,7 @@
-import { Observable, BehaviorSubject } from 'rxjs';
-import { Component, OnInit, ViewContainerRef, Output, EventEmitter, ElementRef, Input } from '@angular/core';
-import { isNgTemplate } from '@angular/compiler';
+import { ActivatedRoute } from '@angular/router';
+
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+
 
 @Component({
   selector: 'app-hour-box',
@@ -9,10 +10,14 @@ import { isNgTemplate } from '@angular/compiler';
 })
 export class HourBoxComponent implements OnInit {
 
+  id: number;
+
   @Output() delete = new EventEmitter();
   @Input() meeting: Meeting;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) {
+    this.route.params.subscribe( params => this.id = params['id'] );
+  }
 
   ngOnInit() {
   }

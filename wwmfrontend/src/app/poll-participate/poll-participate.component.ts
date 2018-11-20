@@ -85,7 +85,7 @@ export class PollParticipateComponent implements OnInit {
   getId() {
 
     const toret = this.index;
-    
+
     this.index++;
 
     if ( this.poll.diasId.length === this.index ) {
@@ -100,13 +100,13 @@ export class PollParticipateComponent implements OnInit {
     const toret = {};
 
     console.log(formValue);
-
+/*
     for (const elem in this.myForm.controls) {
       console.log(this.myForm.controls[elem]);
-      /*if (elem.checked) {
+      if (elem.checked) {
         toret[elem.toString()] = '1';
-      }*/
-    }
+      }
+    }*/
 
     const form = {
       'participateDate' : toret

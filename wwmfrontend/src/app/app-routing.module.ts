@@ -21,7 +21,8 @@ const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'poll/:id', component: PollDetailComponent, canActivate: [AuthGuard] },
     { path: 'participate/:id', component: PollParticipateComponent, canActivate: [AuthGuard] },
-    { path: 'add', component: AddpollComponent, canActivate: [AuthGuard] }
+    { path: 'add', component: AddpollComponent, canActivate: [AuthGuard] },
+    { path: 'edit/:id', component: AddpollComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

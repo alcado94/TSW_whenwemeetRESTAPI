@@ -11,7 +11,7 @@
                         </div>
                     </ul>
                     <div  class="schedule-pos table-autoscroll">
-                        <app-day-box *ngFor="let day of listDays" [data]="day" (delete)="remove(index)"></app-day-box>
+                        <app-day-box *ngFor="let day of listDays; let index = index" [data]="day" (delete)="remove(index)"></app-day-box>
                     </div>
                     <div class="errors-date"></div>
                     <div class="add-day" id="AñadirFecha">
@@ -23,7 +23,7 @@
         </div>
         <div class="accept-poll-banner">
             <div class="accept-poll-banner-pos">
-                <button id="enviarform" class="btn btn-primary" (click)="submit()"><?= i18n("Send") ?></button>
+                <button id="enviarform" class="btn btn-primary" (click)="submit()">Enviar</button>
             </div>
 
         </div>

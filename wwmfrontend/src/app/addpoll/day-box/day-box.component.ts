@@ -14,11 +14,14 @@ export class DayBoxComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.onAddHourClick();
+    if (!this.data.id) {
+      this.onAddHourClick();
+    }
   }
 
   onAddHourClick() {
     this.data.hours.push({
+      id: null,
       hourInit: '',
       hourEnd: ''
      });

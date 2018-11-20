@@ -25,6 +25,7 @@ import { PollParticipateComponent } from './poll-participate/poll-participate.co
 import { AddpollComponent } from './addpoll/addpoll.component';
 import { DayBoxComponent } from './addpoll/day-box/day-box.component';
 import { HourBoxComponent } from './addpoll/hour-box/hour-box.component';
+import { EditpollComponent } from './editpoll/editpoll.component';
 
 
 
@@ -45,7 +46,8 @@ import { HourBoxComponent } from './addpoll/hour-box/hour-box.component';
     PollParticipateComponent,
     AddpollComponent,
     DayBoxComponent,
-    HourBoxComponent
+    HourBoxComponent,
+    EditpollComponent
   ],
   imports: [
     BrowserModule,

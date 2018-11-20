@@ -27,4 +27,8 @@ export class PollService {
     return this.http.post(this.url + 'poll', form);
   }
 
+  modifyPoll(form, id) {
+    return this.http.put(this.url + `poll/${id}`, form);
+  }
+
 }
