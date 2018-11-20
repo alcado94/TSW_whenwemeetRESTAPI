@@ -66,6 +66,7 @@ export class PollParticipateComponent implements OnInit {
   }
 
   setMobile (id, toMobile) {
+    /*
     if (toMobile) {
       if (document.getElementById(id + 'm').checked) {
         document.getElementById(id + 'm').checked = false;
@@ -79,7 +80,7 @@ export class PollParticipateComponent implements OnInit {
         document.getElementById(id).checked = true;
       }
       document.getElementById(id).checked = true;
-    }
+    }*/
   }
 
   getId() {
