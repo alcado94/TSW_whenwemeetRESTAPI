@@ -1,5 +1,4 @@
 import { ActivatedRoute } from '@angular/router';
-
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 

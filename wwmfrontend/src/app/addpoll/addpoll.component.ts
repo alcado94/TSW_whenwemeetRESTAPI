@@ -1,4 +1,3 @@
-
 import { Router, ActivatedRoute } from '@angular/router';
 import { PollService } from './../services/poll.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';

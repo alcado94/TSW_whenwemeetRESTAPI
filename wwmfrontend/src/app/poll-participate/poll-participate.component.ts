@@ -1,5 +1,3 @@
-import { element } from 'protractor';
-import { forEach } from '@angular/router/src/utils/collection';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
