@@ -5,8 +5,8 @@
                     <ul class="logmod__tabs">
                         <div class="sminputs">
                             <div class="input full">
-                                <label class="string optional" for="user-name">Titulo</label>
-                                <input class="string optional" formControlName="title" required maxlength="255" id="user-email" placeholder="Titulo" name="title" type="text" size="50">
+                                <label class="string optional" for="user-name">{{ 'Title' | translate }}</label>
+                                <input class="string optional" formControlName="title" required maxlength="255" id="user-email" placeholder="{{ 'Title' | translate }}" name="title" type="text" size="50">
                             </div>
                         </div>
                     </ul>
@@ -23,7 +23,7 @@
         </div>
         <div class="accept-poll-banner">
             <div class="accept-poll-banner-pos">
-                <button id="enviarform" class="btn btn-primary" (click)="submit()">Enviar</button>
+                <button id="enviarform" class="btn btn-primary" (click)="submit()">{{ 'Send' | translate }}</button>
             </div>
 
         </div>

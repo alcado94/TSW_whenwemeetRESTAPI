@@ -13,7 +13,7 @@ export class SignInComponent implements OnInit {
   myForm: FormGroup;
   loginCtrl: FormControl;
   passwordCtrl: FormControl;
-  show = false;
+  show = true;
 
   constructor(private loginService: LoginService, private router: Router, private fb: FormBuilder) { }
 

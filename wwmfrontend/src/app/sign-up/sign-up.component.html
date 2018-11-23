@@ -1,42 +1,42 @@
 <div class="logmod__tab lgm-1">
   <div class="logmod__heading">
-      <span class="logmod__heading-subtitle">Introduce tu datos para la creacion de una cuenta</span>
+      <span class="logmod__heading-subtitle">{{ 'Enter your personal data to create an account' | translate }}</span>
   </div>
   <div class="logmod__form">
       <form accept-charset="utf-8" [formGroup]="myForm" (ngSubmit)="submitHandler()" class="simform" >
           <div class="sminputs">
               <div class="input full">
-                  <label class="string optional" for="user-name">Login*</label>
-                  <input class="string optional" maxlength="255" formControlName="login" id="login" name="login" placeholder="Login"
+                  <label class="string optional" for="user-name">{{ 'Login' | translate }}</label>
+                  <input class="string optional" maxlength="255" formControlName="login" id="login" name="login" placeholder="{{ 'Login' | translate }}"
                       type="text" size="50" />
               </div>
           </div>
           <div class="sminputs">
               <div class="input string optional">
-                  <label class="string optional" for="user-pw">Name*</label>
-                  <input class="string optional" maxlength="255" formControlName="name" id="name" name="name" placeholder="Name"
+                  <label class="string optional" for="user-pw">{{ 'Name' | translate }}</label>
+                  <input class="string optional" maxlength="255" formControlName="name" id="name" name="name" placeholder="{{ 'Name' | translate }}"
                       type="text" size="50" />
               </div>
               <div class="input string optional">
-                  <label class="string optional" for="user-pw-repeat">Surname*</label>
+                  <label class="string optional" for="user-pw-repeat">{{ 'Surname' | translate }}</label>
                   <input class="string optional" maxlength="255" formControlName="surname" id="surname" name="surname"
-                      placeholder="Surname" type="text" size="50" />
+                      placeholder="{{ 'Surname' | translate }}" type="text" size="50" />
               </div>
           </div>
           <div class="sminputs">
               <div class="input full">
-                  <label class="string optional" for="user-pw">Password*</label>
-                  <input class="string optional" maxlength="255" formControlName="passwd" id="passwd" placeholder="Password" name="passwd"
+                  <label class="string optional" for="user-pw">{{ 'Password' | translate }}</label>
+                  <input class="string optional" maxlength="255" formControlName="passwd" id="passwd" placeholder="{{ 'Password' | translate }}" name="passwd"
                       type="password" size="50" />
               </div>
               
           </div>
           <div class="simform__actions">
             <div>
-              <label class="string optional" for="user-pw">Image (JPG)</label>
+              <label class="string optional" for="user-pw">{{ 'Image' | translate }}</label>
               <input type="file" (change)="onFileChange($event)" class="string optional" formControlName="img" id="img" name="img" #fileInput>
             </div>
-            <input [disabled]="myForm.invalid" class="sumbit" name="commit" type="submit" value="Create account" />
+            <input [disabled]="myForm.invalid" class="sumbit" name="commit" type="submit" value="{{ 'Create Account' | translate }}" />
           </div>
       </form>
   </div>

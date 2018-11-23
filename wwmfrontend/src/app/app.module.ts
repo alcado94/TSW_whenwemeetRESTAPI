@@ -1,7 +1,7 @@
 import { AuthGuard } from './helpers/auth.guard';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,8 +26,13 @@ import { AddpollComponent } from './addpoll/addpoll.component';
 import { DayBoxComponent } from './addpoll/day-box/day-box.component';
 import { HourBoxComponent } from './addpoll/hour-box/hour-box.component';
 import { EditpollComponent } from './editpoll/editpoll.component';
+import { TranslateService } from './translate.service';
+import { TranslatePipe } from './translate.pipe';
 
-
+export function setupTranslateFactory(
+  service: TranslateService): Function {
+  return () => service.use('es');
+}
 
 @NgModule({
   declarations: [
@@ -47,7 +52,8 @@ import { EditpollComponent } from './editpoll/editpoll.component';
     AddpollComponent,
     DayBoxComponent,
     HourBoxComponent,
-    EditpollComponent
+    EditpollComponent,
+    TranslatePipe
   ],
   imports: [
     BrowserModule,
@@ -60,6 +66,8 @@ import { EditpollComponent } from './editpoll/editpoll.component';
     AuthGuard,
     LoginService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    TranslateService,
+    {provide: APP_INITIALIZER, useFactory: setupTranslateFactory, deps: [ TranslateService ], multi: true},    
   ],
   entryComponents: [
     DayBoxComponent,

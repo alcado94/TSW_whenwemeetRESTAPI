@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../services/login.service';
+import { TranslateService } from '../translate.service';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,7 @@ import { LoginService } from '../services/login.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private loginService:LoginService) { }
+  constructor(private loginService:LoginService,private translate: TranslateService) { }
 
   ngOnInit() {
   }
@@ -19,6 +20,10 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.loginService.unsetLocalStorage();
+  }
+
+  setLang(lang: string) {
+    this.translate.use(lang);
   }
 
 }

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-light navbar-expand-lg">   
   <div class="container">
-          <a class="brand-title navbar-brand"  href=""> WhenWeMeet</a>  
+          <a class="brand-title navbar-brand"  routerLink="/dashboard"> WhenWeMeet</a>  
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar" aria-controls="myNavbar" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
           </button>
@@ -9,27 +9,27 @@
               <ul class="navbar-nav mr-auto">
                   <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Encuestas
+                        {{ 'Polls' | translate }}
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbardrop">
-                          <a class="dropdown-item" routerLink="/dashboard">Listado</a>
-                          <a class="dropdown-item" routerLink="/add">Crear</a>
+                          <a class="dropdown-item" routerLink="/dashboard">{{ 'List' | translate }}</a>
+                          <a class="dropdown-item" routerLink="/add">{{ 'Create' | translate }}</a>
                       </div>
                   </li>
               </ul>
               <ul class="navbar-nav navbar-right">
                   <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Idioma
+                        {{ 'Language' | translate }}
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbardrop">
-                          <a class="dropdown-item" href="">Español</a>
-                          <a class="dropdown-item" href="">Ingles</a>
+                          <button (click)="setLang('es')" class="dropdown-item" href="">{{ 'Spanish' | translate }}</button>
+                          <button (click)="setLang('en')" class="dropdown-item" href="">{{ 'English' | translate }}</button>
                       </div>
                   </li>
                   <div *ngIf="userLoged(); then thenBlock else elseBlock"></div>
-                      <ng-template #thenBlock><li class=nav-item><a (click)="logout()" class="nav-link" routerLink="/index/signin">Cerrar Sesion</a></li></ng-template>
-                      <ng-template #elseBlock><li class=nav-item><a class="nav-link" routerLink="/index/signin">Loguearse</a></li></ng-template>
+                      <ng-template #thenBlock><li class=nav-item><a (click)="logout()" class="nav-link" routerLink="/index/signin">{{ 'Logout' | translate }}</a></li></ng-template>
+                      <ng-template #elseBlock><li class=nav-item><a class="nav-link" routerLink="/index/signin">{{ 'Login' | translate }}</a></li></ng-template>
                       
               </ul>
           </div>           

@@ -1,26 +1,26 @@
 <div class="logmod__tab lgm-2">
   <div class="logmod__heading">
-      <span class="logmod__heading-subtitle">Enter your login and password to sign in</span>
+      <span class="logmod__heading-subtitle">{{ 'Enter your login and password to sign in' | translate }}</span>
   </div>
   <div class="logmod__form">
       <form accept-charset="utf-8" [formGroup]="myForm" (ngSubmit)="submitHandler()" class="simform">
           <div class="sminputs">
               <div class="input full">
-                  <label class="string optional" for="login">Login*</label>
-                  <input class="string optional" formControlName="login" name="login" maxlength="255" id="login" placeholder="Login"
+                  <label class="string optional" for="login">{{ 'Login' | translate }}</label>
+                  <input class="string optional" formControlName="login" name="login" maxlength="255" id="login" placeholder="{{ 'Login' | translate }}"
                        size="50" />
               </div>
           </div>
           <div class="sminputs">
               <div class="input full">
-                  <label class="string optional" for="password">Password*</label>
-                  <input class="string optional" formControlName="password" name="password" maxlength="255" id="password" placeholder="Password"
+                  <label class="string optional" for="password">{{ 'Password' | translate }}</label>
+                  <input class="string optional" formControlName="password" name="password" maxlength="255" id="password" placeholder="{{ 'Password' | translate }}"
                   [type]="show ? 'password' : 'text'" size="50" />
-                  <span class="hide-password" (click)="showPass()">Show</span>
+                  <span class="hide-password" (click)="showPass()">{{ 'Show' | translate }}</span>
               </div>
           </div>
           <div class="simform__actions">
-              <input [disabled]="myForm.invalid" class="sumbit" name="commit" type="submit" value="Enter" />
+              <input [disabled]="myForm.invalid" class="sumbit" name="commit" type="submit" value="{{ 'Enter' | translate }}" />
           </div>
           
       </form>
