@@ -2,7 +2,7 @@
     <div class="info-meeting">
         <h2>{{poll.titulo}}</h2>
         <h6>{{poll.autor}}</h6>
-        <h5>10 {{ 'members' | translate }}</h5>
+        <h5>{{poll.participantes.length}} {{ 'members' | translate }}</h5>
     </div>
     <div class="edit-poll-set">
         <div class="edit-poll-set-l">
@@ -33,7 +33,7 @@
                     <div class="divTableColumn" (click)="expand(dia+1)">
                         <div class="divTableCell cellDay ">
                             <h5>
-                            Jun
+                                {{ getMonth(horas.key) | translate  }}
                             </h5>
                             <h4>{{horas.key | showDate}}</h4>
                         </div>
