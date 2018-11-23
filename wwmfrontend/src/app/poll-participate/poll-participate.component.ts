@@ -32,8 +32,28 @@ export class PollParticipateComponent implements OnInit {
     this.pollService.getPoll(this.id).subscribe(res => {
       console.log(res);
       this.poll = res;
-      console.log(this.poll.diasId);
-      this.poll.diasId.forEach(control => this.myForm.addControl(control, new FormControl()));
+
+      const statusMeeting = [];
+
+      // tslint:disable-next-line:forin
+      for (const key in this.poll.dias) {
+        const value = this.poll.dias[key];
+        // tslint:disable-next-line:forin
+        for (const key2 in value) {
+          if (value[key2][0] === 1) {
+            statusMeeting.push(true);
+          } else {
+            statusMeeting.push(null);
+          }
+        }
+      }
+
+      let indice = 0;
+
+      this.poll.diasId.forEach(control => {
+        this.myForm.addControl(control, new FormControl(statusMeeting[indice]));
+        indice++;
+      });
         //
 
     }, err => {
@@ -98,14 +118,16 @@ export class PollParticipateComponent implements OnInit {
     const formValue = this.myForm.value;
     const toret = {};
 
-    console.log(formValue);
-/*
+    // tslint:disable-next-line:forin
     for (const elem in this.myForm.controls) {
-      console.log(this.myForm.controls[elem]);
-      if (elem.checked) {
-        toret[elem.toString()] = '1';
+      if (this.myForm.controls[elem].value === true) {
+        toret[elem] = '1';
+      } else {
+        toret[elem] = '0';
       }
-    }*/
+    }
+
+
 
     const form = {
       'participateDate' : toret

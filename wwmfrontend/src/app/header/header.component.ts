@@ -9,11 +9,7 @@ import { TranslateService } from '../translate.service';
 })
 export class HeaderComponent implements OnInit {
 
-<<<<<<< Updated upstream
   constructor(private loginService: LoginService, private translate: TranslateService) { }
-=======
-  constructor(private loginService: LoginService) { }
->>>>>>> Stashed changes
 
   ngOnInit() {
   }
