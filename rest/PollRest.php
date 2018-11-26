@@ -358,6 +358,27 @@ class PollRest extends BaseRest {
 		header($_SERVER['SERVER_PROTOCOL'].' 200 Ok');
         
 	}
+
+	public function confirmPoll($code){
+		$id = substr($code, 10);
+		$time = substr($code,0, 10);
+		$date = date("Y-m-d H:i:s",$time);
+
+		print_r($id);
+
+		$result = $this->pollMapper->get($id,$date);
+		if(empty($result)){
+			$result = $this->pollMapper->getEncuesta($id,$date);
+		}
+		if(empty($result)){
+			$result = $this->pollMapper->getEncuestaInfo($id,$date);
+		}
+		if(!empty($result)){
+			return null;
+		}
+		return $id;
+
+	}
 }
 
 // URI-MAPPING for this Rest endpoint
@@ -367,4 +388,5 @@ URIDispatcher::getInstance()
 ->map("GET",	"/poll/$1", array($pollRest,"getPoll"))
 ->map("POST",	"/poll", array($pollRest,"addPoll"))
 ->map("PUT",	"/poll/$1", array($pollRest,"editPoll"))
-->map("PUT",	"/poll/$1/participate", array($pollRest,"participatePoll"));
+->map("PUT",	"/poll/$1/participate", array($pollRest,"participatePoll"))
+->map("GET",	"/code/$1",array($pollRest,"confirmPoll"));
