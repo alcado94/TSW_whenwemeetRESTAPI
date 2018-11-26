@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../services/login.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
@@ -14,10 +14,15 @@ export class SignInComponent implements OnInit {
   loginCtrl: FormControl;
   passwordCtrl: FormControl;
   show = true;
+  returnUrl: string;
 
-  constructor(private loginService: LoginService, private router: Router, private fb: FormBuilder) { }
+  constructor(private route: ActivatedRoute,
+    private loginService: LoginService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit() {
+
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
     this.loginCtrl = new FormControl('', Validators.required);
     this.passwordCtrl = new FormControl('', Validators.required);
 
@@ -32,7 +37,11 @@ export class SignInComponent implements OnInit {
     const formValue = this.myForm.value;
 
     this.loginService.login(formValue).subscribe(res => {
-      this.router.navigate(['/dashboard']);
+      if (this.returnUrl.length > 4) {
+        this.router.navigate([this.returnUrl]);
+      } else {
+        this.router.navigate(['/dashboard']);
+      }
     }, error => {
       this.loginService.unsetLocalStorage();
     });

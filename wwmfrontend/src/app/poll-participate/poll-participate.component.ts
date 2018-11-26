@@ -36,12 +36,12 @@ export class PollParticipateComponent implements OnInit {
 
     this.myForm = this.fb.group({});
 
-
-    if (this.id === null && this.code !== null) {
+    console.log(this.code);
+    if (this.id == null && this.code != null) {
       this.pollService.confirmPoll(this.code).subscribe(res => {
         const value = res as number;
         this.id = value;
-
+        
         this.pollService.getPoll(this.id).subscribe(res => {
           console.log(res);
           this.poll = res;
