@@ -31,4 +31,8 @@ export class PollService {
     return this.http.put(this.url + `poll/${id}`, form);
   }
 
+  confirmPoll(code){
+    return this.http.get(this.url + `code/` + code);
+  }
+
 }

@@ -12,6 +12,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 export class PollParticipateComponent implements OnInit {
 
   id: number;
+  code: number;
   poll: any = [];
   showDetail: string = undefined;
 
@@ -22,43 +23,79 @@ export class PollParticipateComponent implements OnInit {
 
   constructor(private pollService: PollService, private route: ActivatedRoute,
     @Inject(DOCUMENT) document, private fb: FormBuilder) {
-    this.route.params.subscribe( params => this.id = params['id'] );
+  
+    this.route.params.subscribe( params => {
+      this.id = params['id'];
+      this.code = params['code'];
+      });
   }
 
   ngOnInit() {
 
     this.myForm = this.fb.group({});
 
-    this.pollService.getPoll(this.id).subscribe(res => {
-      console.log(res);
-      this.poll = res;
 
-      const statusMeeting = [];
+    if(this.id==null && this.code!=null){
+      this.pollService.confirmPoll(this.code).subscribe(res=> {
+        const value = res as number;
+        this.id = value;
 
-      // tslint:disable-next-line:forin
-      for (const key in this.poll.dias) {
-        const value = this.poll.dias[key];
+        this.pollService.getPoll(this.id).subscribe(res => {
+          console.log(res);
+          this.poll = res;
+    
+          const statusMeeting = [];
+    
+          // tslint:disable-next-line:forin
+          for (const key in this.poll.dias) {
+            const value = this.poll.dias[key];
+            // tslint:disable-next-line:forin
+            for (const key2 in value) {
+              if (value[key2][0] === 1) {
+                statusMeeting.push(true);
+              } else {
+                statusMeeting.push(null);
+              }
+            }
+          }
+    
+          let indice = 0;
+    
+            this.poll.diasId.forEach(control => {
+              this.myForm.addControl(control, new FormControl(statusMeeting[indice]));
+              indice++;
+            });
+        });
+      });
+    }else{
+      this.pollService.getPoll(this.id).subscribe(res => {
+        console.log(res);
+        this.poll = res;
+  
+        const statusMeeting = [];
+  
         // tslint:disable-next-line:forin
-        for (const key2 in value) {
-          if (value[key2][0] === 1) {
-            statusMeeting.push(true);
-          } else {
-            statusMeeting.push(null);
+        for (const key in this.poll.dias) {
+          const value = this.poll.dias[key];
+          // tslint:disable-next-line:forin
+          for (const key2 in value) {
+            if (value[key2][0] === 1) {
+              statusMeeting.push(true);
+            } else {
+              statusMeeting.push(null);
+            }
           }
         }
-      }
-
-      let indice = 0;
-
-      this.poll.diasId.forEach(control => {
-        this.myForm.addControl(control, new FormControl(statusMeeting[indice]));
-        indice++;
+  
+        let indice = 0;
+  
+        this.poll.diasId.forEach(control => {
+          this.myForm.addControl(control, new FormControl(statusMeeting[indice]));
+          indice++;
+        });
+    
       });
-        //
-
-    }, err => {
-      console.log(err);
-    });
+    }   
   }
 
   expand (diaId) {
