@@ -1,3 +1,4 @@
+import { LoginService } from './../services/login.service';
 import { PollService } from './../services/poll.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -12,18 +13,30 @@ export class PollDetailComponent implements OnInit {
   id: number;
   poll: any = [];
   showDetail: string = undefined;
+  isAutor = false;
 
-  constructor(private pollService: PollService, private route: ActivatedRoute) {
+  constructor(private pollService: PollService, private loginService: LoginService, private route: ActivatedRoute) {
     this.route.params.subscribe( params => this.id = params['id'] );
   }
 
   ngOnInit() {
     this.pollService.getPoll(this.id).subscribe(res => {
+
       console.log(res);
       this.poll = res;
+
+      this.loginService.getUser().subscribe(resAutor => {
+        const user = resAutor as User;
+
+        if (this.poll.idAutor === user.id) {
+          this.isAutor = true;
+        }
+      });
+
     }, err => {
       console.log(err);
     });
+
   }
 
   expand (diaId) {

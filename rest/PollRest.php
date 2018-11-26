@@ -23,6 +23,7 @@ class PollRest extends BaseRest {
 		$this->pollMapper = new PollMapper();
 		$this->huecoMapper = new HuecoMapper();
 		$this->huecohasusuariosMapper = new huecohasusuariosMapper();
+		$this->userMapper = new UserMapper();
 		
 	}
 
@@ -30,10 +31,21 @@ class PollRest extends BaseRest {
         $currentLogged = parent::authenticateUser();
 
 		$polls = $this->pollMapper->findAll($currentLogged);
+		
+		$imgs = $this->userMapper->findUserImgsbyPoll($currentLogged->getId());
+
+
+		
 
 		$polls_array = array();
 		foreach($polls as $poll) {
-            
+			
+			$imgsId = array();
+			foreach($imgs[$poll->getId()] as $img){
+				array_push($imgsId, $img);
+			}
+			$imgsId = array_slice($imgsId, 0, 6); 
+
 			array_push($polls_array, array(
                 "id" => $poll->getId(),
                 "creador" => array(
@@ -44,7 +56,8 @@ class PollRest extends BaseRest {
                 ),
                 "title" => $poll->getTitulo(),
                 "fecha_creacion" => $poll->getFechaCreacion(),
-                "num_usuarios" => $poll->getNumUsrs()
+				"num_usuarios" => $poll->getNumUsrs(),
+				"imgsId" => $imgsId
             ));
             
 		}
@@ -348,9 +361,10 @@ class PollRest extends BaseRest {
 		if(isset($data["participateDate"])){
 			foreach ($data["participateDate"] as $key => $value) {
 
-				$hueco_part = new Hueco_has_usuarios($key,$user,1);
-
-				$this->huecohasusuariosMapper->modify($hueco_part);
+				if ($value == 1){
+					$hueco_part = new Hueco_has_usuarios($key,$user,1);
+					$this->huecohasusuariosMapper->modify($hueco_part);
+				}
 				
 			}
 		}

@@ -279,3 +279,21 @@
 .check-nocomplete{
     fill: thistle;
 }
+
+.avatar {
+
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    border: 2px solid #F7F9FA;
+    background: #F7F9FA;
+    color: #fff;
+
+}
+
+.avatars > li {
+
+    display: inline-block;
+    margin-right: -10px;
+}
+

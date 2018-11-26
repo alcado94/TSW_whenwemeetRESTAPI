@@ -66,6 +66,7 @@ class UserRest extends BaseRest {
 		header($_SERVER['SERVER_PROTOCOL'].' 200 Ok');
 		header('Content-Type: application/json');
         echo(json_encode(array(
+			'id' => $user->getId(),
 			'name' => $user->getName(),
 			'surname' => $user->getSurname(), 
 			'login' => $user->getLogin(), 

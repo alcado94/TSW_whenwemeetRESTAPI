@@ -13,6 +13,7 @@
     flex-direction: column;
     align-items: center;
     padding: 10px 10px;
+    width: 100%;
 }
 .schedule-day * {
     margin: 7px 10px;
@@ -38,6 +39,7 @@
     border-bottom: 2px solid coral;
     
 }
+
 .btn-small{
     max-width: fit-content;
     min-width: 20px;

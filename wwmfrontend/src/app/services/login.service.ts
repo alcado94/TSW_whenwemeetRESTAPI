@@ -31,7 +31,7 @@ export class LoginService {
   unsetLocalStorage() {
     localStorage.removeItem('currentUser');
   }
-  singUp(form){
-    return this.http.post(this.url + 'user',form);
+  singUp(form) {
+    return this.http.post(this.url + 'user', form);
   }
 }

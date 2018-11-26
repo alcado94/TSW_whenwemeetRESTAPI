@@ -735,3 +735,59 @@ html {
   overflow-y: hidden;
   padding: 20px;
 }
+
+.accept-poll-banner{
+  position: fixed;
+  bottom: 50px;
+  z-index: 6;
+  right: 0;
+  left: 0;
+  margin-right: auto;
+  margin-left: auto;
+}
+.accept-poll-banner-pos{
+  width: fit-content;
+  width: -moz-fit-content;
+  margin: auto;
+  padding: 20px 20px;
+}
+.accept-poll-banner-pos button{
+  -webkit-box-shadow: 2px 3px 18px -5px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 3px 18px -5px rgba(0,0,0,0.75);
+  box-shadow: 2px 3px 18px -5px rgba(0,0,0,0.75);
+  padding: 11px 50px;
+  background-color: coral;
+  border: none;
+}
+.accept-poll-banner-pos button:hover{
+  background-color: coral;
+}
+.accept-poll-banner-pos button:focus{
+  background-color: coral;
+}
+.foo-spec{
+  min-width: 100%;
+  min-height: 10vh;
+}
+
+@media (max-width: 768px) {
+  
+  .accept-poll-banner{
+      bottom: 0px;
+  }
+  .accept-poll-banner-pos{
+      background-color: white;
+      max-width: 100vw;
+      min-width: 100vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+  }
+  .accept-poll-banner-pos button{
+      padding: 0px;
+      width: 70%;
+      height: 40px;
+      margin: auto;
+  }
+}

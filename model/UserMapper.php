@@ -71,7 +71,7 @@ class UserMapper {
 			
 	}
 
-	public function findUserImgsbyPoll(){
+	public function findUserImgsbyPoll($userLogin){
 		$stmt = $this->db->prepare("SELECT DISTINCT encuestas.idencuestas, encuestas.titulo, encuestas.fecha_creacion, usuarios.idusuarios, usuarios.nombre, usuarios.apellidos, img 
 			FROM usuarios, encuestas, 
 				(SELECT DISTINCT huecos.encuestas_idencuestas FROM huecos, huecos_has_usuarios 
@@ -79,7 +79,7 @@ class UserMapper {
 			WHERE (usuarios.idusuarios=encuestas.usuarios_idcreador AND encuestas.usuarios_idcreador=?) 
 				OR part.encuestas_idencuestas=encuestas.idencuestas AND usuarios.idusuarios=encuestas.usuarios_idcreador");
 		
-		$stmt->execute(array($_SESSION["currentuser"],$_SESSION["currentuser"]));
+		$stmt->execute(array($userLogin,$userLogin));
 		$poll_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		$imgs = array();

@@ -1,3 +1,4 @@
+import { LoginService } from './../services/login.service';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -18,12 +19,13 @@ export class PollParticipateComponent implements OnInit {
 
   index = 0;
   diaSave = 0;
+  isAutor = false;
 
   myForm: FormGroup;
 
-  constructor(private pollService: PollService, private route: ActivatedRoute,
+  constructor(private pollService: PollService,  private loginService: LoginService, private route: ActivatedRoute,
     @Inject(DOCUMENT) document, private fb: FormBuilder) {
-  
+
     this.route.params.subscribe( params => {
       this.id = params['id'];
       this.code = params['code'];
@@ -35,17 +37,17 @@ export class PollParticipateComponent implements OnInit {
     this.myForm = this.fb.group({});
 
 
-    if(this.id==null && this.code!=null){
-      this.pollService.confirmPoll(this.code).subscribe(res=> {
+    if (this.id === null && this.code !== null) {
+      this.pollService.confirmPoll(this.code).subscribe(res => {
         const value = res as number;
         this.id = value;
 
         this.pollService.getPoll(this.id).subscribe(res => {
           console.log(res);
           this.poll = res;
-    
+
           const statusMeeting = [];
-    
+
           // tslint:disable-next-line:forin
           for (const key in this.poll.dias) {
             const value = this.poll.dias[key];
@@ -58,22 +60,29 @@ export class PollParticipateComponent implements OnInit {
               }
             }
           }
-    
+          this.loginService.getUser().subscribe(resAutor => {
+            const user = resAutor as User;
+
+            if (this.poll.idAutor === user.id) {
+              this.isAutor = true;
+            }
+          });
+
           let indice = 0;
-    
+
             this.poll.diasId.forEach(control => {
               this.myForm.addControl(control, new FormControl(statusMeeting[indice]));
               indice++;
             });
         });
       });
-    }else{
+    } else {
       this.pollService.getPoll(this.id).subscribe(res => {
         console.log(res);
         this.poll = res;
-  
+
         const statusMeeting = [];
-  
+
         // tslint:disable-next-line:forin
         for (const key in this.poll.dias) {
           const value = this.poll.dias[key];
@@ -86,16 +95,23 @@ export class PollParticipateComponent implements OnInit {
             }
           }
         }
-  
+        this.loginService.getUser().subscribe(resAutor => {
+          const user = resAutor as User;
+
+          if (this.poll.idAutor === user.id) {
+            this.isAutor = true;
+          }
+        });
+
         let indice = 0;
-  
+
         this.poll.diasId.forEach(control => {
           this.myForm.addControl(control, new FormControl(statusMeeting[indice]));
           indice++;
         });
-    
+
       });
-    }   
+    }
   }
 
   expand (diaId) {
