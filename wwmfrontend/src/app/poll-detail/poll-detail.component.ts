@@ -14,6 +14,7 @@ export class PollDetailComponent implements OnInit {
   poll: any = [];
   showDetail: string = undefined;
   isAutor = false;
+  numMembers = 0;
 
   constructor(private pollService: PollService, private loginService: LoginService, private route: ActivatedRoute) {
     this.route.params.subscribe( params => this.id = params['id'] );
@@ -24,6 +25,7 @@ export class PollDetailComponent implements OnInit {
 
       console.log(res);
       this.poll = res;
+      this.numMembers = Object.keys(this.poll.participantes).length;
 
       this.loginService.getUser().subscribe(resAutor => {
         const user = resAutor as User;

@@ -97,6 +97,11 @@ class PollRest extends BaseRest {
 			
 			$poll = $this->pollMapper->recomposeArrayShow($result,$author[0]['nombre'],$currentLogged->getId());		
 		}
+
+		
+		if(!$this->pollMapper->userIsAuthor($id,$currentLogged->getId())) {
+			$poll["url"] = '';	
+		}
         
 		header($_SERVER['SERVER_PROTOCOL'].' 200 Ok');
 		header('Content-Type: application/json');

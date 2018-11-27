@@ -16,6 +16,7 @@ export class PollParticipateComponent implements OnInit {
   code: number;
   poll: any = [];
   showDetail: string = undefined;
+  numMembers = 0;
 
   index = 0;
   diaSave = 0;
@@ -41,19 +42,19 @@ export class PollParticipateComponent implements OnInit {
       this.pollService.confirmPoll(this.code).subscribe(res => {
         const value = res as number;
         this.id = value;
-        
-        this.pollService.getPoll(this.id).subscribe(res => {
-          console.log(res);
-          this.poll = res;
 
+        this.pollService.getPoll(this.id).subscribe(res2 => {
+          console.log(res2);
+          this.poll = res2;
+          this.numMembers = Object.keys(this.poll.participantes).length;
           const statusMeeting = [];
 
           // tslint:disable-next-line:forin
           for (const key in this.poll.dias) {
-            const value = this.poll.dias[key];
+            const valueT = this.poll.dias[key];
             // tslint:disable-next-line:forin
-            for (const key2 in value) {
-              if (value[key2][0] === 1) {
+            for (const key2 in valueT) {
+              if (valueT[key2][0] === 1) {
                 statusMeeting.push(true);
               } else {
                 statusMeeting.push(null);

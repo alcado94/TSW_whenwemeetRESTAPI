@@ -50,13 +50,6 @@ class PollMapper {
 
 		return $polls;
 	}
-	/*public function findall(){
-		$stmt = $this->db->prepare("SELECT * FROM encuestas");
-			$stmt->execute();
-			$poll_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-			return $poll_db;
-	}*/
 
 	public function get($id, $date){
 		if($date==null){
@@ -322,7 +315,7 @@ class PollMapper {
 	public function userIsAuthor($id,$user){
 		$stmt = $this->db->prepare("SELECT COUNT(*) FROM encuestas WHERE idencuestas=? AND usuarios_idcreador=?");
 		$stmt->execute(array($id,$user));
-
+		
 		if ($stmt->fetchColumn() > 0) {
 			return true;
 		}
