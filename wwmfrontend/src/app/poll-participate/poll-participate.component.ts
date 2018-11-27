@@ -1,9 +1,11 @@
+import { element } from 'protractor';
 import { LoginService } from './../services/login.service';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PollService } from './../services/poll.service';
 import { Component, OnInit, Inject } from '@angular/core';
+import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 
 @Component({
   selector: 'app-poll-participate',
@@ -182,21 +184,23 @@ export class PollParticipateComponent implements OnInit {
   }
 
   setMobile (id, toMobile) {
-    /*
+
     if (toMobile) {
-      if (document.getElementById(id + 'm').checked) {
-        document.getElementById(id + 'm').checked = false;
+      const elem = document.getElementById(id + 'm') as HTMLInputElement;
+      if (elem.checked) {
+        elem.checked = false;
       } else {
-        document.getElementById(id + 'm').checked = true;
+        elem.checked = true;
       }
     } else {
-      if (document.getElementById(id).checked) {
-        document.getElementById(id).checked = false;
+      const elem = document.getElementById(id) as HTMLInputElement;
+      if (elem.checked) {
+        elem.checked = false;
       } else {
-        document.getElementById(id).checked = true;
+        elem.checked = true;
       }
-      document.getElementById(id).checked = true;
-    }*/
+      elem.checked = true;
+    }
   }
 
   getId() {
