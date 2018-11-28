@@ -8,15 +8,13 @@ import { DOCUMENT } from '@angular/common';
 export class CheckHourStateDirective implements OnInit {
 
   // tslint:disable-next-line:no-input-rename
-  @Input('arrayDias') dias: Array<any>;
+  @Input('arrayDias') dias;
   // tslint:disable-next-line:no-input-rename
   @Input('key') key: number;
 
   private html: string;
 
-  constructor(private elementRef: ElementRef,
-    private viewContainer: ViewContainerRef,
-    private renderer: Renderer2, @Inject(DOCUMENT) private document) { }
+  constructor(private elementRef: ElementRef) { }
 
   ngOnInit() {
      this.check();
@@ -26,11 +24,11 @@ export class CheckHourStateDirective implements OnInit {
   check() {
     const checkarray = [];
     // tslint:disable-next-line:forin
-    for ( const estados in this.dias.values) {
+    for ( const estados in this.dias.value) {
       // console.log(this.dias.value[estados]);
-      checkarray.push(this.dias.values[estados][this.key]);
+      checkarray.push(this.dias.value[estados][this.key]);
     }
-
+    console.log(this.dias);
     if (checkarray.includes(1) && !checkarray.includes(0)) {
       this.elementRef.nativeElement.style.fill = 'green';
     } else if ( checkarray.includes(1) ) {
