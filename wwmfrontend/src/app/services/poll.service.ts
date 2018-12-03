@@ -19,6 +19,10 @@ export class PollService {
     return this.http.get(this.url + 'poll/' + id);
   }
 
+  getPollParticipate(code) {
+    return this.http.get(this.url + 'poll/code/' + code);
+  }
+
   participatePoll(form, id) {
     return this.http.put(this.url + `poll/${id}/participate`, form);
   }

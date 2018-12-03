@@ -15,7 +15,6 @@ require_once(__DIR__."/BaseRest.php");
 
 class PollRest extends BaseRest {
 	private $pollMapper;
-	private $commentMapper;
 
 	public function __construct() {
 		parent::__construct();
@@ -100,6 +99,42 @@ class PollRest extends BaseRest {
 
 		
 		if(!$this->pollMapper->userIsAuthor($id,$currentLogged->getId())) {
+			$poll["url"] = '';	
+		}
+        
+		header($_SERVER['SERVER_PROTOCOL'].' 200 Ok');
+		header('Content-Type: application/json');
+        echo(json_encode($poll));
+        
+	}
+
+	public function getPollParticipate($code) {
+        $currentLogged = parent::authenticateUser();
+		
+		if(!isset($code)){
+			header($_SERVER['SERVER_PROTOCOL'].' 400 Bad request');
+			return;
+		}
+
+		$date=null;
+
+		$result = $this->pollMapper->get($code,$date);
+		if(empty($result)){
+			$result = $this->pollMapper->getEncuesta($code,$date);
+		}
+		if(empty($result)){
+			$result = $this->pollMapper->getEncuestaInfo($code,$date);
+		}
+		if(!empty($result)){
+			$_SESSION["permission"]=true;
+			
+			$author = $this->pollMapper->getAuthor($code);
+			
+			$poll = $this->pollMapper->recomposeArrayShow($result,$author[0]['nombre'],$currentLogged->getId());		
+		}
+
+		
+		if(!$this->pollMapper->userIsAuthor($code,$currentLogged->getId())) {
 			$poll["url"] = '';	
 		}
         

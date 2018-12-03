@@ -44,8 +44,9 @@ export class PollParticipateComponent implements OnInit {
       this.pollService.confirmPoll(this.code).subscribe(res => {
         const value = res as number;
         this.id = value;
+        console.log(this.id);
 
-        this.pollService.getPoll(this.id).subscribe(res2 => {
+        this.pollService.getPollParticipate(this.id).subscribe(res2 => {
           console.log(res2);
           this.poll = res2;
           this.numMembers = Object.keys(this.poll.participantes).length;
