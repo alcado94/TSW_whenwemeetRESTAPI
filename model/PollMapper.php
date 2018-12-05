@@ -321,4 +321,5 @@ class PollMapper {
 		}
 		return false;
 	}
+
 }

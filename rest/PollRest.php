@@ -108,33 +108,37 @@ class PollRest extends BaseRest {
         
 	}
 
-	public function getPollParticipate($code) {
+	public function getPollParticipate($id) {
         $currentLogged = parent::authenticateUser();
 		
-		if(!isset($code)){
+		if(!isset($id)){
 			header($_SERVER['SERVER_PROTOCOL'].' 400 Bad request');
 			return;
 		}
 
+		if($this->huecohasusuariosMapper->existHuecoId($id,$currentLogged->getId())!=true){
+			$this->huecohasusuariosMapper->createHuecosUser($id,$currentLogged->getId());
+		}
+
 		$date=null;
 
-		$result = $this->pollMapper->get($code,$date);
+		$result = $this->pollMapper->get($id,$date);
 		if(empty($result)){
-			$result = $this->pollMapper->getEncuesta($code,$date);
+			$result = $this->pollMapper->getEncuesta($id,$date);
 		}
 		if(empty($result)){
-			$result = $this->pollMapper->getEncuestaInfo($code,$date);
+			$result = $this->pollMapper->getEncuestaInfo($id,$date);
 		}
 		if(!empty($result)){
 			$_SESSION["permission"]=true;
 			
-			$author = $this->pollMapper->getAuthor($code);
+			$author = $this->pollMapper->getAuthor($id);
 			
 			$poll = $this->pollMapper->recomposeArrayShow($result,$author[0]['nombre'],$currentLogged->getId());		
 		}
 
 		
-		if(!$this->pollMapper->userIsAuthor($code,$currentLogged->getId())) {
+		if(!$this->pollMapper->userIsAuthor($id,$currentLogged->getId())) {
 			$poll["url"] = '';	
 		}
         
@@ -443,4 +447,5 @@ URIDispatcher::getInstance()
 ->map("POST",	"/poll", array($pollRest,"addPoll"))
 ->map("PUT",	"/poll/$1", array($pollRest,"editPoll"))
 ->map("PUT",	"/poll/$1/participate", array($pollRest,"participatePoll"))
-->map("GET",	"/code/$1",array($pollRest,"confirmPoll"));
+->map("GET",	"/code/$1",array($pollRest,"confirmPoll"))
+->map("GET",	"/poll/code/$1",array($pollRest,"getPollParticipate"));

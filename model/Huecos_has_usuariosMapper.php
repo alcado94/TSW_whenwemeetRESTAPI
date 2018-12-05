@@ -88,4 +88,16 @@ class HuecohasUsuariosMapper {
 			return true;
 		}
 	}
+
+	public function createHuecos($id,$user){
+		$stmt = $this->db->prepare("SELECT huecos.encuestas_idencuestas FROM huecos_has_usuarios,huecos WHERE huecos.encuestas_idencuestas=? AND huecos_has_usuarios.usuarios_idusuarios=?");
+		$stmt->execute(array($id,$user));
+		$poll_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		
+		if(empty($poll_db)){
+		//if ($stmt->fetchColumn() > 0) {
+			return true;
+		}
+		return false;
+	}
 }
