@@ -641,6 +641,7 @@ html {
   padding: 10px 10px;
 }
 .schedule-day * {
+  display: flex;
   margin: 7px 10px;
 }
 .schedule-date{

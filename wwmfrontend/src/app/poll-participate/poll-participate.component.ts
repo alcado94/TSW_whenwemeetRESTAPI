@@ -1,11 +1,8 @@
-import { element } from 'protractor';
 import { LoginService } from './../services/login.service';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { DOCUMENT } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PollService } from './../services/poll.service';
-import { Component, OnInit, Inject } from '@angular/core';
-import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-poll-participate',
@@ -27,7 +24,7 @@ export class PollParticipateComponent implements OnInit {
   myForm: FormGroup;
 
   constructor(private pollService: PollService,  private loginService: LoginService, private route: ActivatedRoute,
-    @Inject(DOCUMENT) document, private fb: FormBuilder) {
+    private fb: FormBuilder, private router: Router) {
 
     this.route.params.subscribe( params => {
       this.id = params['id'];
@@ -39,15 +36,13 @@ export class PollParticipateComponent implements OnInit {
 
     this.myForm = this.fb.group({});
 
-    console.log(this.code);
     if (this.id == null && this.code != null) {
       this.pollService.confirmPoll(this.code).subscribe(res => {
         const value = res as number;
         this.id = value;
-        console.log(this.id);
 
         this.pollService.getPollParticipate(this.id).subscribe(res2 => {
-          console.log(res2);
+
           this.poll = res2;
           this.numMembers = Object.keys(this.poll.participantes).length;
           const statusMeeting = [];
@@ -82,7 +77,6 @@ export class PollParticipateComponent implements OnInit {
       });
     } else {
       this.pollService.getPoll(this.id).subscribe(res => {
-        console.log(res);
         this.poll = res;
 
         const statusMeeting = [];
@@ -239,6 +233,7 @@ export class PollParticipateComponent implements OnInit {
 
     this.pollService.participatePoll(form, this.poll.id).subscribe( res => {
       console.log(res);
+      this.router.navigate(['/dashboard']);
     }, err => {
       console.log(err);
     });

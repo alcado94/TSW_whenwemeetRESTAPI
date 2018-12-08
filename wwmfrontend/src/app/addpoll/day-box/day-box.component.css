@@ -17,6 +17,7 @@
 }
 .schedule-day * {
     margin: 7px 10px;
+    display: flex;
 }
 .schedule-date{
     width: 100%;

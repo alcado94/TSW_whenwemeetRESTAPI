@@ -1,0 +1,4 @@
+.schedule-day * {
+    display: flex;
+    margin: 7px 10px;
+}
