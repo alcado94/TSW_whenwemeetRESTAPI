@@ -181,14 +181,14 @@ export class PollParticipateComponent implements OnInit {
 
   setMobile (id, toMobile) {
     if (toMobile) {
-      const elem = document.getElementById(id + 'm') as HTMLInputElement;
+      const elem = document.getElementById(id.toString() + 'm') as HTMLInputElement;
       if (elem.checked) {
         elem.checked = false;
       } else {
         elem.checked = true;
       }
     } else {
-      const elem = document.getElementById(id) as HTMLInputElement;
+      const elem = document.getElementById(id.toString()) as HTMLInputElement;
       if (elem.checked) {
         elem.checked = false;
       } else {
