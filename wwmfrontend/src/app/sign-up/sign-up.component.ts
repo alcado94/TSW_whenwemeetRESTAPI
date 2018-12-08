@@ -61,7 +61,6 @@ export class SignUpComponent implements OnInit {
     const formValue = this.prepareSave();
 
     this.loginService.singUp(formValue).subscribe(res => {
-      console.log(res);
       this.router.navigate(['/index/signin']);
     }, error => {
       console.log(error);

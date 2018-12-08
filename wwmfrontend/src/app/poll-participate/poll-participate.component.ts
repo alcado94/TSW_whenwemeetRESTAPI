@@ -232,7 +232,6 @@ export class PollParticipateComponent implements OnInit {
 
 
     this.pollService.participatePoll(form, this.poll.id).subscribe( res => {
-      console.log(res);
       this.router.navigate(['/dashboard']);
     }, err => {
       console.log(err);

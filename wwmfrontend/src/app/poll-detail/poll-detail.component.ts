@@ -23,7 +23,6 @@ export class PollDetailComponent implements OnInit {
   ngOnInit() {
     this.pollService.getPoll(this.id).subscribe(res => {
 
-      console.log(res);
       this.poll = res;
       this.numMembers = Object.keys(this.poll.participantes).length;
 

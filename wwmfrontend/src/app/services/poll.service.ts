@@ -28,11 +28,15 @@ export class PollService {
   }
 
   postPoll(form) {
-    return this.http.post(this.url + 'poll', form);
+    return this.http.post(this.url + 'poll', form, {
+      responseType: 'text',
+    });
   }
 
   modifyPoll(form, id) {
-    return this.http.put(this.url + `poll/${id}`, form);
+    return this.http.put(this.url + `poll/${id}`, form, {
+      responseType: 'text',
+    });
   }
 
   confirmPoll(code) {

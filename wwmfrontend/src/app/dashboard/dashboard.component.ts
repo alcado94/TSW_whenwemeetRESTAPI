@@ -16,7 +16,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.pollService.getAll().subscribe(res => {
-      console.log(res);
       this.arrayCard = res as Card[];
     }, err => {
       console.log(err);
