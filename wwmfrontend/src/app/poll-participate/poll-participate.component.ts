@@ -179,7 +179,6 @@ export class PollParticipateComponent implements OnInit {
   }
 
   setMobile (id, toMobile) {
-
     if (toMobile) {
       const elem = document.getElementById(id + 'm') as HTMLInputElement;
       if (elem.checked) {
@@ -194,7 +193,6 @@ export class PollParticipateComponent implements OnInit {
       } else {
         elem.checked = true;
       }
-      elem.checked = true;
     }
   }
 

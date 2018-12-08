@@ -28,7 +28,6 @@ export class CheckHourStateDirective implements OnInit {
       // console.log(this.dias.value[estados]);
       checkarray.push(this.dias.value[estados][this.key]);
     }
-    console.log(this.dias);
     if (checkarray.includes(1) && !checkarray.includes(0)) {
       this.elementRef.nativeElement.style.fill = 'green';
     } else if ( checkarray.includes(1) ) {
