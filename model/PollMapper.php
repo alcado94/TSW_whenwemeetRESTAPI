@@ -227,6 +227,7 @@ class PollMapper {
 		$toret['url'] = strtotime($result[0]['fecha_creacion']).$result[0]['idencuestas'];
 
 		$toret['diasId'] = array();
+		
 
 		$i = 0;
 		if(isset($result[0]['fecha_inicio'])){
@@ -247,7 +248,7 @@ class PollMapper {
 			foreach ($result as $key => $value) {
 				foreach($toret['participantes'] as $k=>$val){
 					
-					if(!in_array($value['nombre'], $toret['participantes'])){
+					if(!in_array($value['idusuarios'], $toret['participantesId'])){
 						$toret['participantes'][$i] = $value['nombre'];
 						$toret['participantesId'][$i] = $value['idusuarios'];
 						$toret['participantesImg'][$i] = $value['img'];
