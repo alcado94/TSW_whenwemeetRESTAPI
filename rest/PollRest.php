@@ -179,8 +179,7 @@ class PollRest extends BaseRest {
 				foreach ($value as $key2 => $value2) {
 					if($value2 != $value[0]){
 						$hueco = new Hueco();	
-						print_r($dia);
-						print_r($value2['hourInit']);	
+						
 						if($dia == '' || $value2['hourInit'] == '' || $value2['hourEnd'] == ''){
 							header($_SERVER['SERVER_PROTOCOL'].' 400 Bad request');
 							return;
@@ -265,7 +264,12 @@ class PollRest extends BaseRest {
 			foreach ($data["daysNew"] as $dia => $arrayhoras) {
 				foreach ($arrayhoras as $cita => $horas) {
 
-						$hueco = new Hueco();						
+						$hueco = new Hueco();	
+						
+						if($dia == '' || $horas[0] == '' || $horas[1] == ''){
+							header($_SERVER['SERVER_PROTOCOL'].' 400 Bad request');
+							return;
+						}					
 						
 						$hueco->setFechaInicio(new DateTime($dia.' '.$horas[0]));
 						$hueco->setFechaFin(new DateTime($dia.' '.$horas[1]));
