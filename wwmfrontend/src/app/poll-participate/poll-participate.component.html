@@ -67,8 +67,8 @@
                                 <div class="divTableCell" *ngFor="let estados of horas.value | keyvalue; let hora = index;">
                                     <div *ngIf="clave2 === 0" class="exp">
                                         <div class="checkbox">    
-                                            <input type="checkbox" id="{{poll.diasId[dia]}}" [checked]="estados.value[clave2] === 1" formControlName="{{poll.diasId[getId()]}}">
-                                            <label for="{{poll.diasId[dia]}}" (click)="setMobile(poll.diasId[dia].toString(), true)">
+                                            <input type="checkbox" id="{{poll.diasId[dia+hora]}}" [checked]="estados.value[clave2] === 1" formControlName="{{poll.diasId[getId()]}}">
+                                            <label for="{{poll.diasId[dia+hora]}}" (click)="setMobile(poll.diasId[dia+hora].toString(), true)">
                                                 <span ></span>
                                             </label>
                                         </div>
@@ -91,8 +91,8 @@
                                 <div class="divTableCell">
                                     <div class="exp">
                                         <div class="checkbox">
-                                            <input type="checkbox" id="{{poll.diasId[dia]}}m" [checked]="estados.value[0] === 1">
-                                            <label for="{{poll.diasId[dia]}}m" (click)="setMobile(poll.diasId[dia].toString(), false)">
+                                            <input type="checkbox" id="{{poll.diasId[dia+hora]}}m" [checked]="estados.value[0] === 1">
+                                            <label for="{{poll.diasId[dia+hora]}}m" (click)="setMobile(poll.diasId[dia+hora].toString(), false)">
                                                 <span ></span>
                                             </label>
                                         </div>

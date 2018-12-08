@@ -73,6 +73,7 @@ export class PollParticipateComponent implements OnInit {
               this.myForm.addControl(control, new FormControl(statusMeeting[indice]));
               indice++;
             });
+            console.log(this.myForm);
         });
       });
     } else {
@@ -197,15 +198,15 @@ export class PollParticipateComponent implements OnInit {
   }
 
   getId() {
-
-    const toret = this.index;
+    
+    let toret = this.index;
 
     this.index++;
 
     if ( this.poll.diasId.length === this.index ) {
       this.index = 0;
     }
-
+    
     return toret;
   }
 
