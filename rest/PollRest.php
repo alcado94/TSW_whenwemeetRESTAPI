@@ -94,7 +94,7 @@ class PollRest extends BaseRest {
 			
 			$author = $this->pollMapper->getAuthor($id);
 			
-			$poll = $this->pollMapper->recomposeArrayShow($result,$author[0]['nombre'],$currentLogged->getId());		
+			$poll = $this->recomposeArrayShow($result,$author->getName(),$currentLogged->getId());		
 		}
 
 		
@@ -134,7 +134,7 @@ class PollRest extends BaseRest {
 			
 			$author = $this->pollMapper->getAuthor($id);
 			
-			$poll = $this->pollMapper->recomposeArrayShow($result,$author[0]['nombre'],$currentLogged->getId());		
+			$poll = $this->recomposeArrayShow($result,$author->getName(),$currentLogged->getId());		
 		}
 
 		
@@ -245,7 +245,7 @@ class PollRest extends BaseRest {
 			return;
 		}
 
-		$result = $this->pollMapper->getEncuestaEdit($id,NULL);
+		$result = $this->recomposeArrayShowEditPoll(($this->pollMapper->getEncuestaEdit($id,NULL)));
 
 		$date = date("Y-m-d H:i:s");
 
@@ -432,8 +432,6 @@ class PollRest extends BaseRest {
 		$time = substr($code,0, 10);
 		$date = date("Y-m-d H:i:s",$time);
 
-		print_r($id);
-
 		$result = $this->pollMapper->get($id,$date);
 		if(empty($result)){
 			$result = $this->pollMapper->getEncuesta($id,$date);
@@ -447,6 +445,175 @@ class PollRest extends BaseRest {
 		return $id;
 
 	}
+
+	private function recomposeArrayShowEditPoll($poll_db){
+
+		if (  empty($poll_db) ){
+			return array();
+		}
+
+		$result = array();
+		$result['title'] = $poll_db[0]['titulo'];
+		$result['Id'] = $poll_db[0]['idencuestas'];
+		$result['dias'] = array();
+		$result['diasId'] = array();
+
+		foreach ($poll_db as $value) {
+			$parts = explode(' ', $value['fecha_inicio']);
+			$parts2 = explode(' ', $value['fecha_fin']);
+			#$result['dias'][$parts[0]] = array("horas"=>array("Init"=>$parts[1],"End"=>$parts2[1]));
+			$result['dias'][$parts[0]] = array();
+			
+		}
+		foreach($poll_db as $poll){
+			$parts = explode(' ', $poll['fecha_inicio']);
+			$parts2 = explode(' ', $poll['fecha_fin']);
+			if(isset($result['dias'][$parts[0]])){
+				array_push($result['dias'][$parts[0]],array("Init"=>$parts[1],"End"=>$parts2[1]));
+			}
+		}
+
+
+		foreach ($poll_db as $value) {
+			$parts = explode(' ', $value['fecha_inicio']);
+			$parts2 = explode(' ', $value['fecha_fin']);
+			#$result['dias'][$parts[0]] = array("horas"=>array("Init"=>$parts[1],"End"=>$parts2[1]));
+			$result['diasId'][$parts[0]] = array();
+			
+		}
+		foreach($poll_db as $poll){
+			$parts = explode(' ', $poll['fecha_inicio']);
+			$parts2 = explode(' ', $poll['fecha_fin']);
+			if(isset($result['diasId'][$parts[0]])){
+				array_push($result['diasId'][$parts[0]],$poll['idhueco']);
+			}
+		}
+		return $result;
+	}
+
+	public function recomposeArrayShow($result, $autor, $iduser){
+
+
+
+		if(isset($result[0]['fecha_inicio']) & isset($result[0]['idusuarios'])){
+
+			$checkDays =  array();
+			$day;
+			$daypos;
+
+			foreach ($result as $key => $value) {
+				if(!in_array($value['fecha_inicio'],$checkDays)){
+					array_push($checkDays,$value['fecha_inicio']);
+					$day = $value['fecha_inicio'];
+					$daypos = $key;
+					$temp = $value;
+				}
+
+				if($day == $value['fecha_inicio'] & $iduser == $value['idusuarios']){
+					$result[$daypos] = $value;
+					$result[$key] = $temp;
+				}
+			}
+		}
+
+		$toret = array();
+		$toret['id'] = $result[0]['idencuestas'];
+		$toret['titulo'] = $result[0]['titulo'];
+		$toret['autor'] = $autor;
+		$toret['idAutor'] = $result[0]['usuarios_idcreador'];
+		$toret['participantes'] = array();
+		$toret['participantesId'] = array();
+		$toret['participantesImg'] = array();
+		$toret['dias'] = array();
+		$toret['url'] = strtotime($result[0]['fecha_creacion']).$result[0]['idencuestas'];
+
+		$toret['diasId'] = array();
+		
+
+		$i = 0;
+		if(isset($result[0]['fecha_inicio'])){
+
+			if(isset($result[0]['nombre'])){
+				$toret['participantes'][$i] = $result[0]['nombre'];
+				$toret['participantesId'][$i] = $result[0]['idusuarios'];
+				$toret['participantesImg'][$i] = $result[0]['img'];
+			}
+
+			$parts = explode(' ', $result[0]['fecha_inicio']);
+			
+			$toret['dias'][$parts[0]] = array();
+
+			$i++;
+			
+			
+			foreach ($result as $key => $value) {
+				foreach($toret['participantes'] as $k=>$val){
+					
+					if(!in_array($value['idusuarios'], $toret['participantesId'])){
+						$toret['participantes'][$i] = $value['nombre'];
+						$toret['participantesId'][$i] = $value['idusuarios'];
+						$toret['participantesImg'][$i] = $value['img'];
+						
+						$i++;
+					}
+				}	
+			}
+
+			
+			$i = 0;
+			foreach ($result as $key => $value) {
+				foreach($toret['dias'] as $k=>$val){
+					$parts = explode(' ', $value['fecha_inicio']);
+						
+					if(!in_array($parts[0], $toret['dias'])){
+						$toret['dias'][$parts[0]] = array();	
+					}
+
+				}	
+			}
+
+			foreach ($result as $key => $value) {
+				$parts = explode(' ', $value['fecha_inicio']);
+				$partsfin = explode(' ', $value['fecha_fin']);
+				foreach($toret['dias'] as $k2=>$val2){				
+					$toret['dias'][$k2][$parts[1].'-'.$partsfin[1]] = array();	
+				}
+			}
+
+			$i = 0;
+			foreach ($result as $key => $value) {
+				$parts = explode(' ', $value['fecha_inicio']);
+				$partsfin = explode(' ', $value['fecha_fin']);
+				if(isset($value['estado']))
+					array_push($toret['dias'][$parts[0]][$parts[1].'-'.$partsfin[1]],$value['estado']);
+				else
+					array_push($toret['dias'][$parts[0]][$parts[1].'-'.$partsfin[1]],'');
+			}
+
+			foreach ($toret['dias'] as $key => $value) {
+				foreach ($toret['dias'][$key] as $key2 => $value2) {
+					if(empty($toret['dias'][$key][$key2])){
+						unset($toret['dias'][$key][$key2]);
+					}
+			
+				}
+			}
+
+			foreach ($result as $key => $value) {
+				foreach($toret['participantes'] as $k=>$val){
+					if(!in_array($value['idhuecos'], $toret['diasId'])){
+						array_push($toret['diasId'],$value['idhuecos']);
+						
+					}
+				}	
+			}
+
+			
+		}
+
+		return $toret;
+	}
+
 }
 
 // URI-MAPPING for this Rest endpoint

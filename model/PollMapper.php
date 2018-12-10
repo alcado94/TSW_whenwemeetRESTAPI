@@ -67,7 +67,7 @@ class PollMapper {
 			$poll_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		}
-
+		//Retorna un array de datos no compatibles con ninguna entidad
 		return $poll_db;
 	}
 
@@ -84,7 +84,7 @@ class PollMapper {
 			$stmt->execute(array($id,$date));
 			$poll_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
-
+		//Retorna un array de datos no compatibles con ninguna entidad
 		return $poll_db;
 	}
 
@@ -103,8 +103,8 @@ class PollMapper {
 		}
 
 		
-
-		return $this->recomposeArrayShowEditPoll($poll_db);;
+		//Retorna un array de datos no compatibles con ninguna entidad
+		return $poll_db;
 	}
 	
 	public function getEncuestaInfo($id, $date){
@@ -122,7 +122,7 @@ class PollMapper {
 
 		}
 		
-		return $poll_db;
+		return new Encuesta($poll_db[0]['idencuestas'],$poll_db[0]['usuarios_idcreador'],$poll_db[0]['titulo'],$poll_db[0]['fecha_creacion']);
 	}
 
 	public function getAuthor($id){
@@ -130,7 +130,7 @@ class PollMapper {
 		$stmt->execute(array($id));
 		$poll_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-		return $poll_db;
+		return new User(NULL,$poll_db[0]['nombre']);
 	}
 
 	public function save(Encuesta $encuesta) {
@@ -145,174 +145,7 @@ class PollMapper {
 		return $this->db->lastInsertId();
 	}
 
-	private function recomposeArrayShowEditPoll($poll_db){
-
-		if (  empty($poll_db) ){
-			return array();
-		}
-
-		$result = array();
-		$result['title'] = $poll_db[0]['titulo'];
-		$result['Id'] = $poll_db[0]['idencuestas'];
-		$result['dias'] = array();
-		$result['diasId'] = array();
-
-		foreach ($poll_db as $value) {
-			$parts = explode(' ', $value['fecha_inicio']);
-			$parts2 = explode(' ', $value['fecha_fin']);
-			#$result['dias'][$parts[0]] = array("horas"=>array("Init"=>$parts[1],"End"=>$parts2[1]));
-			$result['dias'][$parts[0]] = array();
-			
-		}
-		foreach($poll_db as $poll){
-			$parts = explode(' ', $poll['fecha_inicio']);
-			$parts2 = explode(' ', $poll['fecha_fin']);
-			if(isset($result['dias'][$parts[0]])){
-				array_push($result['dias'][$parts[0]],array("Init"=>$parts[1],"End"=>$parts2[1]));
-			}
-		}
-
-
-		foreach ($poll_db as $value) {
-			$parts = explode(' ', $value['fecha_inicio']);
-			$parts2 = explode(' ', $value['fecha_fin']);
-			#$result['dias'][$parts[0]] = array("horas"=>array("Init"=>$parts[1],"End"=>$parts2[1]));
-			$result['diasId'][$parts[0]] = array();
-			
-		}
-		foreach($poll_db as $poll){
-			$parts = explode(' ', $poll['fecha_inicio']);
-			$parts2 = explode(' ', $poll['fecha_fin']);
-			if(isset($result['diasId'][$parts[0]])){
-				array_push($result['diasId'][$parts[0]],$poll['idhueco']);
-			}
-		}
-		return $result;
-	}
-
-	public function recomposeArrayShow($result, $autor, $iduser){
-
-
-
-		if(isset($result[0]['fecha_inicio']) & isset($result[0]['idusuarios'])){
-
-			$checkDays =  array();
-			$day;
-			$daypos;
-
-			foreach ($result as $key => $value) {
-				if(!in_array($value['fecha_inicio'],$checkDays)){
-					array_push($checkDays,$value['fecha_inicio']);
-					$day = $value['fecha_inicio'];
-					$daypos = $key;
-					$temp = $value;
-				}
-
-				if($day == $value['fecha_inicio'] & $iduser == $value['idusuarios']){
-					$result[$daypos] = $value;
-					$result[$key] = $temp;
-				}
-			}
-		}
-
-		$toret = array();
-		$toret['id'] = $result[0]['idencuestas'];
-		$toret['titulo'] = $result[0]['titulo'];
-		$toret['autor'] = $autor;
-		$toret['idAutor'] = $result[0]['usuarios_idcreador'];
-		$toret['participantes'] = array();
-		$toret['participantesId'] = array();
-		$toret['participantesImg'] = array();
-		$toret['dias'] = array();
-		$toret['url'] = strtotime($result[0]['fecha_creacion']).$result[0]['idencuestas'];
-
-		$toret['diasId'] = array();
 		
-
-		$i = 0;
-		if(isset($result[0]['fecha_inicio'])){
-
-			if(isset($result[0]['nombre'])){
-				$toret['participantes'][$i] = $result[0]['nombre'];
-				$toret['participantesId'][$i] = $result[0]['idusuarios'];
-				$toret['participantesImg'][$i] = $result[0]['img'];
-			}
-
-			$parts = explode(' ', $result[0]['fecha_inicio']);
-			
-			$toret['dias'][$parts[0]] = array();
-
-			$i++;
-			
-			
-			foreach ($result as $key => $value) {
-				foreach($toret['participantes'] as $k=>$val){
-					
-					if(!in_array($value['idusuarios'], $toret['participantesId'])){
-						$toret['participantes'][$i] = $value['nombre'];
-						$toret['participantesId'][$i] = $value['idusuarios'];
-						$toret['participantesImg'][$i] = $value['img'];
-						
-						$i++;
-					}
-				}	
-			}
-
-			
-			$i = 0;
-			foreach ($result as $key => $value) {
-				foreach($toret['dias'] as $k=>$val){
-					$parts = explode(' ', $value['fecha_inicio']);
-						
-					if(!in_array($parts[0], $toret['dias'])){
-						$toret['dias'][$parts[0]] = array();	
-					}
-
-				}	
-			}
-
-			foreach ($result as $key => $value) {
-				$parts = explode(' ', $value['fecha_inicio']);
-				$partsfin = explode(' ', $value['fecha_fin']);
-				foreach($toret['dias'] as $k2=>$val2){				
-					$toret['dias'][$k2][$parts[1].'-'.$partsfin[1]] = array();	
-				}
-			}
-
-			$i = 0;
-			foreach ($result as $key => $value) {
-				$parts = explode(' ', $value['fecha_inicio']);
-				$partsfin = explode(' ', $value['fecha_fin']);
-				if(isset($value['estado']))
-					array_push($toret['dias'][$parts[0]][$parts[1].'-'.$partsfin[1]],$value['estado']);
-				else
-					array_push($toret['dias'][$parts[0]][$parts[1].'-'.$partsfin[1]],'');
-			}
-
-			foreach ($toret['dias'] as $key => $value) {
-				foreach ($toret['dias'][$key] as $key2 => $value2) {
-					if(empty($toret['dias'][$key][$key2])){
-						unset($toret['dias'][$key][$key2]);
-					}
-			
-				}
-			}
-
-			foreach ($result as $key => $value) {
-				foreach($toret['participantes'] as $k=>$val){
-					if(!in_array($value['idhuecos'], $toret['diasId'])){
-						array_push($toret['diasId'],$value['idhuecos']);
-						
-					}
-				}	
-			}
-
-			
-		}
-
-		return $toret;
-	}
-	
 	public function userIsAuthor($id,$user){
 		$stmt = $this->db->prepare("SELECT COUNT(*) FROM encuestas WHERE idencuestas=? AND usuarios_idcreador=?");
 		$stmt->execute(array($id,$user));
