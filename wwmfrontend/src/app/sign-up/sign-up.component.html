@@ -11,6 +11,7 @@
                       type="text" size="50" />
               </div>
           </div>
+          
           <div class="sminputs">
               <div class="input string optional">
                   <label class="string optional" for="user-pw">{{ 'Name' | translate }}</label>
@@ -38,6 +39,13 @@
             </div>
             <input [disabled]="myForm.invalid" class="sumbit" name="commit" type="submit" value="{{ 'Create Account' | translate }}" />
           </div>
+          <div class="sminputs">
+            <div class="input full">
+                <label class="string optional" for="email">Email</label>
+                <input class="string optional" maxlength="255" formControlName="email" id="email" name="email" placeholder="Email"
+                    type="email" size="120" />
+            </div>
+        </div>
       </form>
   </div>
   

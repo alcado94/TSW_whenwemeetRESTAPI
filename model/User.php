@@ -42,6 +42,7 @@ class User {
 	* @var string
 	*/
 	private $image;
+	private $email;
 
 	/**
 	* The constructor
@@ -51,12 +52,13 @@ class User {
 	* @param string $login The login of the user
 	* @param string $passwd The password of the user
 	*/
-	public function __construct($id=NULL,$name=NULL, $surname=NULL, $login=NULL, $passwd=NULL, $image=NULL) {
+	public function __construct($id=NULL,$name=NULL, $surname=NULL, $login=NULL, $passwd=NULL, $email=NULL, $image=NULL) {
 		$this->id = $id;
 		$this->name = $name;
 		$this->surname = $surname;
 		$this->login = $login;
 		$this->passwd = $passwd;
+		$this->email = $email;
 		$this->image = $image;
 	}
 
@@ -139,6 +141,20 @@ class User {
 		$this->passwd = $passwd;
 	}
 	
+
+	public function getEmail() {
+		return $this->email;
+	}
+
+	/**
+	* Sets the login of this user
+	*
+	* @param string $login The login of this user
+	* @return void
+	*/
+	public function setEmail($email) {
+		$this->email = $email;
+	}
 	/**
 	* Gets the image of this user
 	*
@@ -179,6 +195,9 @@ class User {
 		}
 		if (strlen($this->passwd) < 1) {
 			$errors["passwd"] = "Password must be at least 1 characters length";
+		}
+		if (strlen($this->email) < 1) {
+			$errors["email"] = "Email must be at least 1 characters length";
 		}
 		if ($this->image == NULL ) {
 			$errors["image"] = "Image neccesary";

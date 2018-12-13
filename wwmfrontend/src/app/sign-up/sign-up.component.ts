@@ -15,6 +15,7 @@ export class SignUpComponent implements OnInit {
   passwordCtrl: FormControl;
   nameCtrl: FormControl;
   surnameCtrl: FormControl;
+  emailCtrl: FormControl;
   imgCtrl: FormControl;
 
   @ViewChild('fileInput') fileInput: ElementRef;
@@ -27,13 +28,15 @@ export class SignUpComponent implements OnInit {
     this.nameCtrl = new FormControl('', Validators.required);
     this.surnameCtrl = new FormControl('', Validators.required);
     this.imgCtrl = new FormControl('', Validators.required);
+    this.emailCtrl = new FormControl('', Validators.required);
 
     this.myForm = this.fb.group({
       login: this.loginCtrl,
       passwd: this.passwordCtrl,
       name: this.nameCtrl,
       surname: this.surnameCtrl,
-      img: this.imgCtrl
+      img: this.imgCtrl,
+      email: this.emailCtrl
     });
   }
 
@@ -52,6 +55,7 @@ export class SignUpComponent implements OnInit {
     input.append('password', this.myForm.get('passwd').value);
     input.append('login', this.myForm.get('login').value);
     input.append('img', this.myForm.get('img').value);
+    input.append('email', this.myForm.get('email').value);
 
     return input;
   }

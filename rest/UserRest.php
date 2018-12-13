@@ -32,7 +32,7 @@ class UserRest extends BaseRest {
 				return;
 			}
 				
-			$user = new User(NULL,$_POST['name'], $_POST['surname'], $_POST['login'], $_POST['password'], $_FILES['img']);
+			$user = new User(NULL,$_POST['name'], $_POST['surname'], $_POST['login'], $_POST['password'], $_POST['email'], $_FILES['img']);
 			$user->checkIsValidForRegister();
 
 			$this->userMapper->save($user);
