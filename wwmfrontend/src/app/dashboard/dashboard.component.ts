@@ -1,3 +1,4 @@
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { PollService } from './../services/poll.service';
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../services/login.service';
@@ -12,9 +13,17 @@ export class DashboardComponent implements OnInit {
   arrayCard: Array<Card>;
   user: any = '';
 
-  constructor(private pollService: PollService, private loginService: LoginService) { }
+  notifyCheck: FormGroup;
+
+  constructor(private pollService: PollService, private loginService: LoginService,
+    private fb: FormBuilder, private userService: LoginService) { }
 
   ngOnInit() {
+
+    this.notifyCheck = new FormGroup({
+      notifycation: new FormControl(false)
+    });
+
     this.pollService.getAll().subscribe(res => {
       this.arrayCard = res as Card[];
     }, err => {
@@ -23,10 +32,28 @@ export class DashboardComponent implements OnInit {
 
     this.loginService.getUser().subscribe(res => {
       this.user = res;
+
+      this.notifyCheck.setValue({
+        // Recoge el valor para las notificaciones
+        notifycation: this.user.notify
+      });
+
     }, err => {
       console.log(err);
     });
 
+  }
+
+  notify() {
+
+    const value = this.notifyCheck.value;
+
+    this.loginService.notify(value).subscribe(res => {
+      this.notifyCheck.setValue({
+        // Recoge el valor para las notificaciones
+        notifycation: !value['notifycation']
+      });
+    });
   }
 
 }

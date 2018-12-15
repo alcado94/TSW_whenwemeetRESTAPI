@@ -3,4 +3,5 @@ interface User {
     image: string;
     name: string;
     surname: string;
+    notify: boolean;
 }

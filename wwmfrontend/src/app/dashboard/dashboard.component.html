@@ -1,7 +1,15 @@
 <div class="container">
 
   <div class="dashboard-title">
-      <h2>{{ 'Welcome' | translate }}, <span>{{user.name}}</span> </h2>
+      <div>
+            <h2>{{ 'Welcome' | translate }}, <span>{{user.name}}</span> </h2>
+            <form class="notify" [formGroup]="notifyCheck">
+                <input type="checkbox" id="switch" formControlName="notifycation" (change)="notify()"/>
+                    <label for="switch"></label>
+                <span>Notificaciones</span>
+            </form>
+      </div>
+      
       <a routerLink="/add"><button class="btn">{{ 'Add Poll' | translate }}</button></a>
   </div>
   <div class="container" id="dashboardCards">

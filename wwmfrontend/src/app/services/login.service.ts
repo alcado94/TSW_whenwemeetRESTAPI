@@ -34,4 +34,7 @@ export class LoginService {
   singUp(form) {
     return this.http.post(this.url + 'user', form);
   }
+  notify(value) {
+    return this.http.post(this.url + 'notification', value);
+  }
 }
