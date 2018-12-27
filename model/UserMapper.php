@@ -63,7 +63,7 @@ class UserMapper {
 		$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 		if ($user != NULL) {
-			return new User($user["idusuarios"], $user["nombre"], $user["apellidos"], $user["login"], $user["contrasena"], $user["img"]);
+			return new User($user["idusuarios"], $user["nombre"], $user["apellidos"], $user["login"], $user["contrasena"],$user["email"], $user["img"]);
 		}
 		else{
 			return NULL;
@@ -99,6 +99,23 @@ class UserMapper {
 		}
 		return $imgs;
 		
+	}
+
+	public function getMails($id){
+		$toret = array();
+		$stmt = $this->db->prepare("SELECT usuarios.email FROM usuarios, huecos, huecos_has_usuarios
+			WHERE huecos.encuestas_idencuestas=? AND huecos.idhueco=huecos_has_usuarios.idhuecos 
+			AND huecos_has_usuarios.usuarios_idusuarios=usuarios.idusuarios AND usuarios.notificacion=1");
+		
+		$stmt->execute(array($id));
+		$user_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		foreach($user_db as $user){
+			array_push($toret,new User(null, null, null, null, null,$user["email"], null));
+		}
+
+		return $toret;
+
 	}
 
 	/**

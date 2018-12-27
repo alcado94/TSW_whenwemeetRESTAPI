@@ -119,8 +119,10 @@ class PollRest extends BaseRest {
 		if($this->huecohasusuariosMapper->existHuecoId($id,$currentLogged->getId())!=true){
 			$this->huecohasusuariosMapper->createHuecosUser($id,$currentLogged->getId());
 		}
-
+		print_r($id);
+		print_r("TEST");
 		$date=null;
+
 
 		$result = $this->pollMapper->get($id,$date);
 		if(empty($result)){
@@ -422,10 +424,79 @@ class PollRest extends BaseRest {
 				
 			}
 		}
-        
+
+
+        //$this->notifyUsers($id);
 		header($_SERVER['SERVER_PROTOCOL'].' 200 Ok');
         
 	}
+
+	private function notifyUsers($id){
+		$result = $this->userMapper->getMails($id);
+
+		$usuario = $this->userMapper->getUser($currentLogged->getLogin());
+
+		$poll = $this->pollMapper->getEncuestaInfo($id,null);
+
+		if(!empty($result)){
+			$mail = new PHPMailer;
+			//Tell PHPMailer to use SMTP
+			$mail->isSMTP();
+			//Enable SMTP debugging
+			// 0 = off (for production use)
+			// 1 = client messages
+			// 2 = client and server messages
+			//$mail->SMTPDebug = 2;
+			//Ask for HTML-friendly debug output
+			$mail->Debugoutput = 'html';
+			//Set the hostname of the mail server
+			//$mail->Host = 'smtp.gmail.com';
+			// use
+			$mail->Host = gethostbyname('smtp.gmail.com');
+			// if your network does not support SMTP over IPv6
+			//Set the SMTP port number - 587 for authenticated TLS, a.k.a. RFC4409 SMTP submission
+			$mail->Port =587;
+			//Set the encryption system to use - ssl (deprecated) or tls
+			$mail->SMTPSecure = 'tls';
+			//Whether to use SMTP authentication
+			$mail->SMTPAuth = true;
+			//Username to use for SMTP authentication - use full email address for gmail
+			$mail->Username = "g12.abp.gimnasio@gmail.com";
+			//Password to use for SMTP authentication
+			$mail->Password = "gimnasio";
+			//Set who the message is to be sent from
+			$mail->setFrom("g12.abp.gimnasio@gmail.com", 'Gimnasio ABP G12');
+			//Set an alternative reply-to address
+			$mail->addReplyTo("g12.abp.gimnasio@gmail.com", 'Gimnasio ABP G12');
+			//Set who the message is to be sent to
+			//$mail->addAddress($email, $email);
+			//Set the subject line
+			$mail->Subject = "Nueva participación en encuesta";
+			//convert HTML into a basic plain-text alternative body
+			$mail->Body = "El usuario " + $usuario->getName() + " " + $usuario->getSurname() + 
+				"ha participado en la encuesta " + $poll->getTitulo();
+			//Replace the plain text body with one created manually
+			$mail->AltBody = "El usuario " + $usuario->getName() + " " + $usuario->getSurname() + 
+			"ha participado en la encuesta " + $poll->getTitulo();
+			$mail->SMTPOptions = array(
+				'ssl' => array(
+					'verify_peer' => false,
+					'verify_peer_name' => false,
+					'allow_self_signed' => true
+					));	
+
+			foreach($result as $user ){				
+				$mail->addAddress($user->getMail(), $user->getMail());
+			}		  
+
+			if (!$mail->Send()) {
+				echo("Mailer Error");
+			} else {
+				echo("Message sent!");
+			}
+		}
+	}
+	
 
 	public function confirmPoll($code){
 		$id = substr($code, 10);
@@ -443,6 +514,7 @@ class PollRest extends BaseRest {
 			return null;
 		}
 		return $id;
+		//return "19";
 
 	}
 
