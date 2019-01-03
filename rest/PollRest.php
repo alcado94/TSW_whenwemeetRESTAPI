@@ -9,6 +9,8 @@ require_once(__DIR__."/../model/PollMapper.php");
 require_once(__DIR__."/../model/HuecoMapper.php");
 require_once(__DIR__."/../model/Huecos_has_usuariosMapper.php");
 
+require_once(__DIR__."/../mail/PHPMailerAutoload.php");
+
 
 require_once(__DIR__."/BaseRest.php");
 
@@ -119,8 +121,7 @@ class PollRest extends BaseRest {
 		if($this->huecohasusuariosMapper->existHuecoId($id,$currentLogged->getId())!=true){
 			$this->huecohasusuariosMapper->createHuecosUser($id,$currentLogged->getId());
 		}
-		print_r($id);
-		print_r("TEST");
+
 		$date=null;
 
 
@@ -426,12 +427,14 @@ class PollRest extends BaseRest {
 		}
 
 
-        //$this->notifyUsers($id);
+        $this->notifyUsers($id);
 		header($_SERVER['SERVER_PROTOCOL'].' 200 Ok');
         
 	}
 
 	private function notifyUsers($id){
+		$currentLogged = parent::authenticateUser();
+
 		$result = $this->userMapper->getMails($id);
 
 		$usuario = $this->userMapper->getUser($currentLogged->getLogin());
@@ -465,19 +468,19 @@ class PollRest extends BaseRest {
 			//Password to use for SMTP authentication
 			$mail->Password = "gimnasio";
 			//Set who the message is to be sent from
-			$mail->setFrom("g12.abp.gimnasio@gmail.com", 'Gimnasio ABP G12');
+			$mail->setFrom("g12.abp.gimnasio@gmail.com", 'When We Meet');
 			//Set an alternative reply-to address
-			$mail->addReplyTo("g12.abp.gimnasio@gmail.com", 'Gimnasio ABP G12');
+			$mail->addReplyTo("g12.abp.gimnasio@gmail.com", 'When We Meet');
 			//Set who the message is to be sent to
 			//$mail->addAddress($email, $email);
 			//Set the subject line
-			$mail->Subject = "Nueva participación en encuesta";
+			$mail->Subject = "Nueva participacion en encuesta";
 			//convert HTML into a basic plain-text alternative body
-			$mail->Body = "El usuario " + $usuario->getName() + " " + $usuario->getSurname() + 
-				"ha participado en la encuesta " + $poll->getTitulo();
+			$mail->Body = "El usuario " . $usuario->getName() . " " . $usuario->getSurname() . 
+				" ha participado en la encuesta: " . '"' . $poll->getTitulo(). '"';
 			//Replace the plain text body with one created manually
-			$mail->AltBody = "El usuario " + $usuario->getName() + " " + $usuario->getSurname() + 
-			"ha participado en la encuesta " + $poll->getTitulo();
+			$mail->AltBody = "El usuario " . $usuario->getName() . " " . $usuario->getSurname() . 
+			" ha participado en la encuesta: " . '"' . $poll->getTitulo() . '"';
 			$mail->SMTPOptions = array(
 				'ssl' => array(
 					'verify_peer' => false,
@@ -486,15 +489,16 @@ class PollRest extends BaseRest {
 					));	
 
 			foreach($result as $user ){				
-				$mail->addAddress($user->getMail(), $user->getMail());
+				$mail->addAddress($user->getEmail(), $user->getEmail());
 			}		  
 
 			if (!$mail->Send()) {
-				echo("Mailer Error");
+				//echo("Mailer Error");
 			} else {
-				echo("Message sent!");
+				//echo("Message sent!");
 			}
 		}
+		return;
 	}
 	
 
@@ -510,11 +514,12 @@ class PollRest extends BaseRest {
 		if(empty($result)){
 			$result = $this->pollMapper->getEncuestaInfo($id,$date);
 		}
-		if(!empty($result)){
+		if(empty($result)){
 			return null;
 		}
-		return $id;
-		//return "19";
+
+		header($_SERVER['SERVER_PROTOCOL'].' 201 Created');
+		echo($id);
 
 	}
 

@@ -23,13 +23,13 @@ export class PollParticipateComponent implements OnInit {
 
   myForm: FormGroup;
 
-  constructor(private pollService: PollService,  private loginService: LoginService, private route: ActivatedRoute,
+  constructor(private pollService: PollService, private loginService: LoginService, private route: ActivatedRoute,
     private fb: FormBuilder, private router: Router) {
 
-    this.route.params.subscribe( params => {
+    this.route.params.subscribe(params => {
       this.id = params['id'];
       this.code = params['code'];
-      });
+    });
   }
 
   ngOnInit() {
@@ -37,14 +37,11 @@ export class PollParticipateComponent implements OnInit {
     this.myForm = this.fb.group({});
 
     if (this.id == null && this.code != null) {
-      alert(this.code);
+
       this.pollService.confirmPoll(this.code).subscribe(res => {
-        alert(res);
-        const value = res as number;
-        //alert(res);
+        const value = Number.parseInt(res);
         this.id = value;
-        alert(this.id);
-        //alert(value);
+
 
         this.pollService.getPollParticipate(this.id).subscribe(res2 => {
 
@@ -118,13 +115,13 @@ export class PollParticipateComponent implements OnInit {
     }
   }
 
-  expand (diaId) {
+  expand(diaId) {
     if (this.showDetail === diaId) {
       this.showDetail = undefined;
 
       document.getElementById(diaId).classList.toggle('divTableColumnScheduleShow');
       document.getElementById(diaId).classList.toggle('divTableColumnSchedule');
-    } else if ( this.showDetail || this.showDetail === '0' ) {
+    } else if (this.showDetail || this.showDetail === '0') {
       document.getElementById(this.showDetail).classList.toggle('divTableColumnScheduleShow');
       document.getElementById(this.showDetail).classList.toggle('divTableColumnSchedule');
 
@@ -184,7 +181,7 @@ export class PollParticipateComponent implements OnInit {
     }
   }
 
-  setMobile (id, toMobile) {
+  setMobile(id, toMobile) {
     if (toMobile) {
       const elem = document.getElementById(id.toString() + 'm') as HTMLInputElement;
       if (elem.checked) {
@@ -203,15 +200,15 @@ export class PollParticipateComponent implements OnInit {
   }
 
   getId() {
-    
+
     let toret = this.index;
 
     this.index++;
 
-    if ( this.poll.diasId.length === this.index ) {
+    if (this.poll.diasId.length === this.index) {
       this.index = 0;
     }
-    
+
     return toret;
   }
 
@@ -231,11 +228,11 @@ export class PollParticipateComponent implements OnInit {
 
 
     const form = {
-      'participateDate' : toret
+      'participateDate': toret
     };
 
 
-    this.pollService.participatePoll(form, this.poll.id).subscribe( res => {
+    this.pollService.participatePoll(form, this.poll.id).subscribe(res => {
       this.router.navigate(['/dashboard']);
     }, err => {
       console.log(err);

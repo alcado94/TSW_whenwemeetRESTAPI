@@ -121,6 +121,8 @@ class PollMapper {
 			$poll_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		}
+
+		//return $poll_db;
 		
 		return new Encuesta($poll_db[0]['idencuestas'],$poll_db[0]['usuarios_idcreador'],$poll_db[0]['titulo'],$poll_db[0]['fecha_creacion']);
 	}
