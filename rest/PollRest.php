@@ -523,6 +523,21 @@ class PollRest extends BaseRest {
 
 	}
 
+	//Si el usuario quiere recibir o no notificaciones 
+	public function changeNotification($value){
+
+		$currentLogged = parent::authenticateUser();
+
+		$value = json_encode($value);
+		$value = json_decode($value,true);
+
+		$this->userMapper->setNotification($currentLogged->getId(),$value['notification']);
+		header($_SERVER['SERVER_PROTOCOL'].' 200 OK');
+
+		return null;
+
+	}
+
 	private function recomposeArrayShowEditPoll($poll_db){
 
 		if (  empty($poll_db) ){
@@ -702,4 +717,5 @@ URIDispatcher::getInstance()
 ->map("PUT",	"/poll/$1", array($pollRest,"editPoll"))
 ->map("PUT",	"/poll/$1/participate", array($pollRest,"participatePoll"))
 ->map("GET",	"/code/$1",array($pollRest,"confirmPoll"))
-->map("GET",	"/poll/code/$1",array($pollRest,"getPollParticipate"));
+->map("GET",	"/poll/code/$1",array($pollRest,"getPollParticipate"))
+->map("POST",	"/notification",array($pollRest,"changeNotification"));

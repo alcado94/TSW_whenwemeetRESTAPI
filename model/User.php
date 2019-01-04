@@ -52,7 +52,7 @@ class User {
 	* @param string $login The login of the user
 	* @param string $passwd The password of the user
 	*/
-	public function __construct($id=NULL,$name=NULL, $surname=NULL, $login=NULL, $passwd=NULL, $email=NULL, $image=NULL) {
+	public function __construct($id=NULL,$name=NULL, $surname=NULL, $login=NULL, $passwd=NULL, $email=NULL, $image=NULL, $notification=NULL) {
 		$this->id = $id;
 		$this->name = $name;
 		$this->surname = $surname;
@@ -60,6 +60,7 @@ class User {
 		$this->passwd = $passwd;
 		$this->email = $email;
 		$this->image = $image;
+		$this->notification = $notification;
 	}
 
 	public function getId() {
@@ -171,6 +172,11 @@ class User {
 	*/
 	public function setImage($image) {
 		$this->image = $image;
+	}
+
+
+	public function getNotification() {
+		return $this->notification;
 	}
 
 	/**

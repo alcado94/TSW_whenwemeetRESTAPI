@@ -70,9 +70,12 @@ class UserRest extends BaseRest {
 			'name' => $user->getName(),
 			'surname' => $user->getSurname(), 
 			'login' => $user->getLogin(), 
-			'image' => $user->getImage()
+			'image' => $user->getImage(),
+			'notify' => $user->getNotification(),
 		)));
 	}
+
+	
 }
 
 // URI-MAPPING for this Rest endpoint

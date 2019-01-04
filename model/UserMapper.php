@@ -61,9 +61,9 @@ class UserMapper {
 		$stmt = $this->db->prepare("SELECT * FROM usuarios where login=?");
 		$stmt->execute(array($username));
 		$user = $stmt->fetch(PDO::FETCH_ASSOC);
-
+		
 		if ($user != NULL) {
-			return new User($user["idusuarios"], $user["nombre"], $user["apellidos"], $user["login"], $user["contrasena"],$user["email"], $user["img"]);
+			return new User($user["idusuarios"], $user["nombre"], $user["apellidos"], $user["login"], $user["contrasena"],$user["email"], $user["img"], $user["notificacion"]);
 		}
 		else{
 			return NULL;
@@ -116,6 +116,13 @@ class UserMapper {
 
 		return $toret;
 
+	}
+
+	public function setNotification($id, $value) {
+		print_r($id);
+		$stmt = $this->db->prepare("UPDATE usuarios SET notificacion=? WHERE usuarios.idusuarios=? ");
+		$stmt->execute(array($value,$id));
+		return $this->db->lastInsertId();
 	}
 
 	/**
