@@ -46,13 +46,15 @@ export class DashboardComponent implements OnInit {
 
   notify() {
 
-    const value = this.notifyCheck.value;
+    const value = this.notifyCheck.value['notifycation'] ? 1 : 0;
 
-    this.loginService.notify(value).subscribe(res => {
+    this.pollService.notify({'notification': value}).subscribe(res => {
       this.notifyCheck.setValue({
         // Recoge el valor para las notificaciones
-        notifycation: !value['notifycation']
+        notifycation: this.notifyCheck.value['notifycation']
       });
+    }, err => {
+      console.log(err);
     });
   }
 

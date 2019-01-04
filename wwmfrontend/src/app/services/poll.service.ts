@@ -40,9 +40,12 @@ export class PollService {
   }
 
   confirmPoll(code) {
-    return this.http.get(this.url + 'code/' + code,{
+    return this.http.get(this.url + 'code/' + code, {
       responseType: 'text',
     });
   }
 
+  notify(value) {
+    return this.http.post(this.url + 'notification', value);
+  }
 }
