@@ -490,13 +490,9 @@ class PollRest extends BaseRest {
 
 			foreach($result as $user ){				
 				$mail->addAddress($user->getEmail(), $user->getEmail());
+				$mail->Send();
 			}		  
 
-			if (!$mail->Send()) {
-				//echo("Mailer Error");
-			} else {
-				//echo("Message sent!");
-			}
 		}
 		return;
 	}
